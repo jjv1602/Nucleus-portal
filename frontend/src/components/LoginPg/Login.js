@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
 import MainScreen from '../MainScreen/MainScreen';
 import axios from 'axios'
+import Loading from '../Loading/Loading';
+import ErrorMsg from '../ErrorMsg/ErrorMsg';
+import './Login.css';
+import 'font-awesome/css/font-awesome.min.css';
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,6 +27,7 @@ const Login = () => {
       }
 
       setLoading(true);
+      setError(false);
       const { data } = await axios.post('/api/users/login', {
         email,
         password,
@@ -32,29 +37,32 @@ const Login = () => {
       console.log(data);
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
+      
     }
     catch (error) {
-      // setError(error.response.data.message);
+      setError(error.response.data.message);
+      setError(true);
+      setLoading(false);
     }
 
   }
   return (
     <>
-
-      <Header />
-      <MainScreen title="LOGIN PAGE">
-        <Form onSubmit={submitHandler}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" onChange={(e) => setEmail(e.target.value)} />
-            <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text>
+    <section className='Login_pg'>
+    <section id="cardt">Sign In </section><br></br><br></br><br></br>
+      {/* <MainScreen title="LOGIN PAGE" > */}
+        <div>
+          {error && <ErrorMsg/>}
+          {loading && <Loading/>}
+         
+        <Form onSubmit={submitHandler} style={{paddingLeft:"10px",paddingRight:"10px"}}>
+          <Form.Group className="mb-1" controlId="formBasicEmail">
+            <Form.Control type="email" placeholder="  &#xf007;  Username or email " onChange={(e) => setEmail(e.target.value)}  style={{fontFamily: "FontAwesome",fontSize:"20px" ,borderRadius:"20px"}}
+            />
           </Form.Group>
-
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" onChange={(p) => setPassword(p.target.value)} />
+          <Form.Group className="mb-2" controlId="formBasicPassword" style={{paddingTop:"20px"}}>
+            <Form.Control type="password" placeholder="  &#xf023;    Password" onChange={(p) => setPassword(p.target.value)} style={{fontFamily: "FontAwesome",fontSize:"20px" ,borderRadius:"20px"}} 
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <Form.Check type="checkbox" label="Check me out" />
@@ -63,11 +71,13 @@ const Login = () => {
             Submit
           </Button>
         </Form>
-        <Row className="py-3">
-          <Col>New Customer ? <Link to="/register">Register Here</Link></Col>
+        <Row className="py-3" style={{padding:"40px"}} >
+          <Col>New Customer ? <Link to="/register" style={{ color: "rgb(80, 80, 240)",textDecoration:"underline" }}>Register Here</Link></Col>
         </Row>
-      </MainScreen>
-
+        </div>
+      {/* </MainScreen> */}
+      
+    </section>
     </>
   );
 }
