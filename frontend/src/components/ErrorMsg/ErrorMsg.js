@@ -5,7 +5,7 @@ const ErrorMsg = () => {
   return (
     <div>
         <Alert key="danger" variant="danger">
-          This is a  alert with
+          ERROR 
         </Alert>
     </div>
   )

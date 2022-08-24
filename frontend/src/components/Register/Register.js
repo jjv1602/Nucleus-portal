@@ -11,39 +11,48 @@ import axios from "axios"
 const Register = ({ title, children }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmpassword, setConfirmPassword] = useState("");
+    const [errormsgpwd, setErrormsg] = useState(null);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
     const submitHandler = async (par) => {
 
         par.preventDefault()  //imp line for submit form
         // console.log(email,password);
-
-        // sending data to API
-        try {
-            const config = {
-                headers: {
-                    "Content-type": "application/json"
+        if (password != confirmpassword) {
+            setErrormsg("Passwords do not match");
+        }else{
+            setErrormsg(null);
+            try {
+                const config = {
+                    headers: {
+                        "Content-type": "application/json"
+                    }
                 }
+                
+                setLoading(true);
+                setError(false);
+                const { data } = await axios.post('/api/users', {
+                    email,
+                    password,
+                },
+                    config
+                );
+                console.log(data);
+                localStorage.setItem("userInfo", JSON.stringify(data));
+                setLoading(false);
+    
+            }
+            catch (error) {
+                setError(error.response.data.message);
+                setError(true);
+                setLoading(false);
             }
 
-            setLoading(true);
-            setError(false);
-            const { data } = await axios.post('/api/users/login', {
-                email,
-                password,
-            },
-                config
-            );
-            console.log(data);
-            localStorage.setItem("userInfo", JSON.stringify(data));
-            setLoading(false);
 
         }
-        catch (error) {
-            setError(error.response.data.message);
-            setError(true);
-            setLoading(false);
-        }
+        // sending data to API
+       
 
     }
     return (
@@ -52,8 +61,9 @@ const Register = ({ title, children }) => {
                 <section id="cardt">Register  </section><br></br><br></br><br></br>
                 {/* <MainScreen title="LOGIN PAGE" > */}
                 <div>
-                    {/* {error && <ErrorMsg/>}
-          {loading && <Loading/>} */}
+                    {/* if error message present  */}
+                    {errormsgpwd && <ErrorMsg variant="danger">{errormsgpwd}</ErrorMsg>}
+                    {/* {loading && <Loading/>} */}
 
                     <Form onSubmit={submitHandler} style={{ paddingLeft: "10px", paddingRight: "10px" }}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -69,7 +79,7 @@ const Register = ({ title, children }) => {
                             />
                         </Form.Group>
                         <Form.Group className="mb-1" controlId="formBasicPassword" style={{ paddingTop: "20px" }}>
-                            <Form.Control type="password" placeholder="  &#xf023;  Confirm Password" onChange={(p) => setPassword(p.target.value)} style={{ fontFamily: "FontAwesome", fontSize: "20px", borderRadius: "20px" }}
+                            <Form.Control type="password" placeholder="  &#xf023;  Confirm Password" onChange={(p) => setConfirmPassword(p.target.value)} style={{ fontFamily: "FontAwesome", fontSize: "20px", borderRadius: "20px" }}
                             />
                         </Form.Group>
                         <br></br>

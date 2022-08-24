@@ -14,7 +14,7 @@ const StartPg = () => {
 
         <section className='sec1'>
           <section className='sec1_img'>
-            <CardGroup style={{ position: "absolute", top: "25%", left: "14%", right: "10%", height: "50%" }}>
+            <CardGroup style={{ position: "absolute", top: "20%", left: "14%", right: "10%", height: "50%" }}>
               <Card  style={{backgroundColor:"#242442"}}>
                 <Card.Body>
                   
@@ -30,8 +30,8 @@ const StartPg = () => {
 
               <Card>
                  <Card.Body>
-                    {/* <Login/> */}
-                    <Register/>
+                    <Login/>
+                    {/* <Register/> */}
                 </Card.Body>
               </Card>
             </CardGroup>
