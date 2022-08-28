@@ -6,7 +6,8 @@ import ErrorMsg from "../ErrorMsg/ErrorMsg"
 import Loading from "../Loading/Loading"
 import { Link } from "react-router-dom"
 import axios from "axios"
-
+import { useDispatch } from "react-redux"
+import { toggleActions } from '../Store/Store';
 
 const Register = ({ title, children }) => {
     const [email, setEmail] = useState("");
@@ -55,6 +56,11 @@ const Register = ({ title, children }) => {
        
 
     }
+
+    const dispatch=useDispatch();
+    const LoginPage=()=>{
+      dispatch(toggleActions.login());
+    }
     return (
         <>
             <section className='Register_pg'>
@@ -88,7 +94,7 @@ const Register = ({ title, children }) => {
                         </Button>
                     </Form>
                     <Row className="py-3" style={{ padding: "40px" }} >
-                        <Col>Already an Account ? <Link to="/login" style={{ color: "rgb(80, 80, 240)", textDecoration: "underline" }}>Login Here</Link></Col>
+                        <Col>Already an Account ? <Link to="/login" onClick={LoginPage}  style={{ color: "rgb(80, 80, 240)", textDecoration: "underline" }}>Login Here</Link></Col>
                     </Row>
                 </div>
                 {/* </MainScreen> */}

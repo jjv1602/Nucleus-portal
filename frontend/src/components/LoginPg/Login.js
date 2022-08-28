@@ -8,6 +8,8 @@ import Loading from '../Loading/Loading';
 import ErrorMsg from '../ErrorMsg/ErrorMsg';
 import './Login.css';
 import 'font-awesome/css/font-awesome.min.css';
+import { useDispatch, useSelector } from 'react-redux'
+import { toggleActions } from '../Store/Store';
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,6 +48,12 @@ const Login = () => {
     }
 
   }
+
+  const dispatch=useDispatch();
+  const registerPage=()=>{
+    dispatch(toggleActions.register());
+  }
+  
   return (
     <>
     <section className='Login_pg'>
@@ -72,7 +80,7 @@ const Login = () => {
           </Button>
         </Form>
         <Row className="py-3" style={{padding:"40px"}} >
-          <Col>New Customer ? <Link to="/register" style={{ color: "rgb(80, 80, 240)",textDecoration:"underline" }}>Register Here</Link></Col>
+          <Col>New Customer ? <Link to="/register" onClick={registerPage} style={{ color: "rgb(80, 80, 240)",textDecoration:"underline" }}>Register Here</Link></Col>
         </Row>
         </div>
       {/* </MainScreen> */}
