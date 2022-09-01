@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import{ useSelector } from 'react-redux'
 
 import './start_pg.css';
@@ -9,12 +9,22 @@ import { Link } from 'react-router-dom';
 import Login from '../LoginPg/Login';
 import Register from '../Register/Register'
 import Store from '../Store/Store'
+import { useNavigate } from 'react-router-dom';
 const StartPg = () => {
   const want_to_login=useSelector(state=>state.toggle.want_to_login);
+  
+  
+  // const userLogin = useSelector((state) => state.login.userLogin);
+  // const { loading, error, userInfo } = userLogin;
+  // useEffect(() => {
+  //   const userInfo = localStorage.getItem("userInfo");
+  //   if (userInfo) {
+  //       history("/landingscreen");
+  //   }
+  // }, [history,userInfo]);
+  
   return (
     <>
-      <body>
-
         <section className='sec1'>
           <section className='sec1_img'>
             <CardGroup style={{ position: "absolute", top: "20%", left: "14%", right: "10%", height: "50%" }}>
@@ -33,14 +43,13 @@ const StartPg = () => {
 
               <Card>
                  <Card.Body>
-                  {want_to_login &&<Login/>}
+                  {want_to_login &&<Login />}
                   {!want_to_login && <Register/>}
                 </Card.Body>
               </Card>
             </CardGroup>
           </section>
         </section>
-      </body>
     </>
   )
 }

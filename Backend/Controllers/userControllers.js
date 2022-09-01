@@ -29,7 +29,7 @@ const registerUser = asyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
-            token: generateToken(user._id),    //json web token see video 10 from 30:00
+            // token: generateToken(user._id),    //json web token see video 10 from 30:00
         });
     } else {
         res.status(400);

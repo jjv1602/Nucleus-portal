@@ -1,11 +1,11 @@
 import React from 'react'
 import { Alert } from 'react-bootstrap'
 
-const ErrorMsg = () => {
+const ErrorMsg = (props) => {
   return (
     <div>
         <Alert key="danger" variant="danger">
-          ERROR 
+          {props.msg}
         </Alert>
     </div>
   )
