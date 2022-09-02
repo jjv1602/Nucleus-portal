@@ -15,6 +15,7 @@ const App = () => {
      <Route path="/login" element={<StartPg/>} />
      <Route path="/register" element={<StartPg />} />
      <Route path="/landingscreen" element={<LandingPg />} />
+    
    </Routes>
    </BrowserRouter>
   )

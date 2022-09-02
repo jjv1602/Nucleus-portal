@@ -1,63 +1,43 @@
-import { Children, useState } from "react"
+import { Children, useEffect, useState } from "react"
 import { Button, Col, Container, Form, Row } from "react-bootstrap"
 
 import React from 'react'
 import ErrorMsg from "../ErrorMsg/ErrorMsg"
 import Loading from "../Loading/Loading"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { toggleActions } from '../Store/Store';
-
+import {register} from '../Store/Actions/userActions';
 const Register = ({ title, children }) => {
     const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [confirmpassword, setConfirmPassword] = useState("");
     const [errormsgpwd, setErrormsg] = useState(null);
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const navigate=useNavigate();
+    const userRegister = useSelector((state) => state.register.userRegister);
+    const {loading,error,userInfo}=userRegister;
+    
+    const dispatch=useDispatch();
     const submitHandler = async (par) => {
-
         par.preventDefault()  //imp line for submit form
         // console.log(email,password);
         if (password != confirmpassword) {
             setErrormsg("Passwords do not match");
         }else{
-            setErrormsg(null);
-            try {
-                const config = {
-                    headers: {
-                        "Content-type": "application/json"
-                    }
-                }
-                
-                setLoading(true);
-                setError(false);
-                const { data } = await axios.post('/api/users', {
-                    email,
-                    password,
-                },
-                    config
-                );
-                console.log(data);
-                localStorage.setItem("userInfo", JSON.stringify(data));
-                setLoading(false);
-    
-            }
-            catch (error) {
-                setError(error.response.data.message);
-                setError(true);
-                setLoading(false);
-            }
-
-
+            dispatch(register(name, email, password));
         }
         // sending data to API
-       
-
     }
 
-    const dispatch=useDispatch();
+    useEffect(() => {
+        if (userInfo) {
+            dispatch(toggleActions.login());
+          navigate("/login"); 
+        }
+      }, [navigate, userInfo]);
+    
     const LoginPage=()=>{
       dispatch(toggleActions.login());
     }
@@ -69,11 +49,12 @@ const Register = ({ title, children }) => {
                 <div>
                     {/* if error message present  */}
                     {errormsgpwd && <ErrorMsg variant="danger">{errormsgpwd}</ErrorMsg>}
-                    {/* {loading && <Loading/>} */}
+                    {error && <ErrorMsg msg={error}></ErrorMsg>}
+                    {loading && <Loading/>}
 
                     <Form onSubmit={submitHandler} style={{ paddingLeft: "10px", paddingRight: "10px" }}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Control type="email" placeholder="  &#xf007; Enter Name " onChange={(e) => setEmail(e.target.value)} style={{ fontFamily: "FontAwesome", fontSize: "20px", borderRadius: "20px" }}
+                            <Form.Control type="email" placeholder="  &#xf007; Enter Name " onChange={(e) => setName(e.target.value)} style={{ fontFamily: "FontAwesome", fontSize: "20px", borderRadius: "20px" }}
                             />
                         </Form.Group>
                         <Form.Group className="mb-1" controlId="formBasicEmail">

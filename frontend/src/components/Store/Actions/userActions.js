@@ -1,5 +1,5 @@
   import axios from "axios";
-  import { loginActions } from '../Store';
+  import { loginActions, registerActions } from '../Store';
   export const login = (email, password) => async (dispatch) => {
     try {
       dispatch(loginActions.USER_LOGIN_REQUEST());
@@ -28,43 +28,40 @@
           : error.message));
     }
   };
+  export const logout = () => async (dispatch) => {
+    localStorage.removeItem("userInfo");
+    dispatch(loginActions.USER_LOGOUT);
+  };
+
+  export const register = (name, email, password) => async (dispatch) => {
+    try {
+      dispatch(registerActions.USER_REGISTER_REQUEST());
   
-  // export const logout = () => async (dispatch) => {
-  //   localStorage.removeItem("userInfo");
-  //   // dispatch(loginActions.USER_LOGOUT());
-  // };
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
   
-  // export const register = (name, email, password, pic) => async (dispatch) => {
-  //   try {
-  //     // dispatch(loginActions.USER_REGISTER_REQUEST());
+      const { data } = await axios.post(
+        "/api/users",
+        { name,email, password },
+        config
+      );
   
-  //     const config = {
-  //       headers: {
-  //         "Content-type": "application/json",
-  //       },
-  //     };
+      dispatch(registerActions.USER_REGISTER_SUCCESS(data));
   
-  //     const { data } = await axios.post(
-  //       "/api/users",
-  //       { name, pic, email, password },
-  //       config
-  //     );
+      dispatch(registerActions.USER_REGISTER_SUCCESS(data));
   
-  //     // dispatch(loginActions.USER_REGISTER_SUCCESS(data));
-  
-  //     // dispatch(loginActions.USER_LOGIN_SUCCESS(data));
-  
-  //     localStorage.setItem("userInfo", JSON.stringify(data));
-  //   } catch (error) {
-  //     dispatch({
-  //       type: USER_REGISTER_FAIL,
-  //       payload:
-  //         error.response && error.response.data.message
-  //           ? error.response.data.message
-  //           : error.message,
-  //     });
-  //   }
-  // };
+      localStorage.setItem("userInfo", JSON.stringify(data));
+    } catch (error) {
+    
+        dispatch(registerActions.USER_REGISTER_FAIL(error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message),
+      );
+    }
+  };
   
   // export const updateProfile = (user) => async (dispatch, getState) => {
   //   try {

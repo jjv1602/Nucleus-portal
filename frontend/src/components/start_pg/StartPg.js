@@ -3,7 +3,6 @@ import{ useSelector } from 'react-redux'
 
 import './start_pg.css';
 // import Login from '../LoginPg/Login';
-import Header from '../Header/Header';
 import { Button, Card, CardGroup } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import Login from '../LoginPg/Login';

@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../../Header/Header'
+import Header from '../Header/Header'
 import classes from './LandingPg.module.css'
 const LandingPg = () => {
   return (

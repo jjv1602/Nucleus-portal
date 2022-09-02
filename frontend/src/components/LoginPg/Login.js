@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom';
-import Header from '../Header/Header';
+import Header from '../Screens/Header/Header';
 import axios from 'axios'
 import Loading from '../Loading/Loading';
 import ErrorMsg from '../ErrorMsg/ErrorMsg';
@@ -12,7 +12,7 @@ import { toggleActions,loginActions } from '../Store/Store';
 import {login} from '../Store/Actions/userActions';
 
 const Login = () => {
-  const history=useNavigate();
+  const navigate=useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // const [error, setError] = useState(false);
@@ -26,9 +26,9 @@ const Login = () => {
 
   useEffect(() => {
     if (userInfo) {
-      history("/landingscreen");
+      navigate("/landingscreen");
     }
-  }, [history,userInfo]);
+  }, [navigate,userInfo]);
 
   const submitHandler = async (par) => {
 
