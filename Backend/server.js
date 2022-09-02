@@ -3,17 +3,19 @@ const path=require('path');
 const dotenv=require('dotenv');
 const connectDB=require("./config/db.js");
 const userRoutes=require("./routes/userRoutes");
-
+const eventRoutes=require("./routes/eventRoutes")
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });;
 
 connectDB();
 const app=express();
 app.use(express.json());
-app.use('/api/users',userRoutes);
+app.use('/api/users',userRoutes);   //userRoutes is imported above 
 // Adding middleware error files
 // notFound error when user sends post or get request to wrong URL's
 
+// ADDING ROUTES FOR EVENTS
+app.use('/api/events',eventRoutes);   //eventRoutes is imported above 
 // app.get("/",(req,res)=>{
 //     res.send("API is running");
 // })
