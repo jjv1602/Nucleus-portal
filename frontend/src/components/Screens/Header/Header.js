@@ -17,8 +17,8 @@ const Header = () => {
 
   return (
     <Navbar expand="lg" id='navt' >
-      <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-      <Navbar.Toggle />
+      <Navbar.Brand href="#home"></Navbar.Brand>
+      <Navbar.Toggle id="toggle"/>
       <Navbar.Collapse>
         <Container>
           <Nav className="me-auto" id="mea" >

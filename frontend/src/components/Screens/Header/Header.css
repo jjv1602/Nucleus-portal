@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
 @media (min-width:1200px){
     #navt{
-        background-color:#d3717b;
+        background-color:#201c34;
         position:absolute;
         border: 0;
         top:0%;
@@ -10,18 +10,15 @@
     }
     #mea{
         position: absolute;
-        left:50%;
-        font-family: 'Ubuntu', sans-serif;
-        font-size:20px;
+        left:40%;
+        font-size:25px;
         font-weight:500;
         
     }
 
     #topic{
-        
-        border-right:0.5px solid rgb(211, 225, 238);
         color:rgb(249, 251, 252);
-        padding:15px;
+        padding:26px;
     }
 
     #topic:hover{
@@ -29,10 +26,33 @@
     }
 
     #ltopic{
-        padding:15px;
+        padding:26px;
         color:rgb(249, 251, 252);
     }
     #ltopic:hover{
         color: #37b3a6;
     }
+}
+
+@media (max-width:1200px){
+    #navt{
+        background-color:#201c34;
+    }
+    #topic{
+        color:rgb(249, 251, 252);
+    }
+    #topic:hover{
+        color: #37b3a6;
+    }
+    #ltopic{
+        color:rgb(249, 251, 252);
+    }
+    #ltopic:hover{
+        color: #37b3a6;
+    }
+    #toggle{
+        background-color: azure;
+        
+    }
+    
 }

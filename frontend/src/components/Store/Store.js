@@ -9,7 +9,7 @@ const logger = reduxLogger.createLogger();
 
 const toggleSlice = createSlice({
     name: 'login_register_toggle',
-    initialState: { want_to_login: true },
+    initialState: { want_to_login: true,rsvp:false },
     reducers: {
         login(state) {
             // islogin:!state.islogin
@@ -17,7 +17,10 @@ const toggleSlice = createSlice({
         },
         register(state) {
             state.want_to_login = false;
-        }
+        },
+        rsvp(state){
+            state.rsvp=!state.rsvp;
+        },
     }
 });
 
@@ -29,7 +32,8 @@ const userLoginSlice = createSlice({
     name: 'login_red',
     initialState: {
         userLogin: {
-            userInfo: userInfoFromStorage, loading: false,
+            userInfo: userInfoFromStorage,
+             loading: false,
             error: ""
         },
 
@@ -48,6 +52,7 @@ const userLoginSlice = createSlice({
         },
         USER_LOGOUT(state, action) {
         },
+       
     }
 })
 
@@ -76,10 +81,87 @@ const userRegisterSlice = createSlice({
     }
 })
 
+
+const eventSlice = createSlice({
+    name: 'event_red',
+    initialState: {
+        userEvent: {
+            userInfo: userInfoFromStorage,
+            loading: false,
+            error: "",
+            success: false,
+        },
+        events: [],
+    },
+    reducers: {
+        EVENT_LIST_REQUEST(state, action) {
+            state.userEvent.loading = true;
+        },
+        EVENT_LIST_SUCCESS(state, action) {
+            state.userEvent.loading = false;
+            state.events = action.payload;  
+        },
+        EVENT_LIST_FAIL(state, action) {
+            state.userEvent.loading = false;
+            state.userEvent.error = action.payload;
+        },
+
+        // Create Request
+        EVENT_CREATE_REQUEST(state, action) {
+            state.userEvent.loading = true;
+        },
+
+        EVENT_CREATE_SUCCESS(state, action) {
+            state.userEvent.loading = false;
+            state.userEvent.success = true;
+        },
+
+        EVENT_CREATE_FAIL(state, action) {
+            state.userEvent.loading = false;
+            state.userEvent.error = action.payload;
+            state.userEvent.success = false;
+        },
+        // Delete Request
+        EVENT_DELETE_REQUEST(state, action) {
+            state.userEvent.loading = true;
+        },
+
+        EVENT_DELETE_SUCCESS(state, action) {
+            state.userEvent.loading = false;
+            state.userEvent.success = true;
+        },
+
+        EVENT_DELETE_FAIL(state, action) {
+            state.userEvent.loading = false;
+            state.userEvent.error = action.payload;
+            state.userEvent.success = false;
+        },
+        // Event Update Request
+        EVENT_UPDATE_REQUEST(state, action) {
+            state.userEvent.loading = true;
+        },
+
+        EVENT_UPDATE_SUCCESS(state, action) {
+            state.userEvent.loading = false;
+            state.userEvent.success = true;
+        },
+
+        EVENT_UPDATE_FAIL(state, action) {
+            state.userEvent.loading = false;
+            state.userEvent.error = action.payload;
+            state.userEvent.success = false;
+        }
+
+    }
+})
+
+
 const store = configureStore({
-    reducer: { toggle: toggleSlice.reducer,
-         login: userLoginSlice.reducer ,
-        register:userRegisterSlice.reducer
+    reducer: {
+        toggle: toggleSlice.reducer,
+        login: userLoginSlice.reducer,
+        register: userRegisterSlice.reducer,
+        event: eventSlice.reducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger, thunk),
     // do not forget this
@@ -89,4 +171,5 @@ const store = configureStore({
 export const toggleActions = toggleSlice.actions;
 export const loginActions = userLoginSlice.actions;
 export const registerActions = userRegisterSlice.actions;
+export const eventActions = eventSlice.actions;
 export default store;

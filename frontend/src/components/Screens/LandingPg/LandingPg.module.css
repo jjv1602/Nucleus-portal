@@ -1,18 +1,18 @@
 .sec1 {
-    position: "relative";
-    margin-top: 12vh;
+    position: "absolute";
+    margin-top: 0vh;
     /* filter: brightness(50%); */
     background-image: url('../../Assets/landingpg.jpg');
     background-repeat: no-repeat;
-    min-height: 60vh;
+    min-height: 70vh;
     width: 100%;
     background-position: center;
     background-size: cover;
 }
 
 #tit_sec {
+   
     backdrop-filter: blur(10px) saturate(70%);
-    display: block;
     position: absolute;
     bottom: 45%;
     left: 20%;
@@ -35,10 +35,17 @@
 
         display: block;
         position: absolute;
-        bottom: 30%;
         left: 5%;
         right: 5%;
+        top:20%;
+        bottom: auto;
         height: auto;
         /* background-color: black; */
+    }
+    #tit_sec_title {
+        line-height: 0.8;
+        text-align: center;
+        font-size: 50px;
+        color: rgb(244, 250, 247);
     }
 }

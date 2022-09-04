@@ -1,11 +1,10 @@
-import { Children, useEffect, useState } from "react"
-import { Button, Col, Container, Form, Row } from "react-bootstrap"
+import { useEffect, useState } from "react"
+import { Button, Col, Form, Row } from "react-bootstrap"
 
 import React from 'react'
 import ErrorMsg from "../ErrorMsg/ErrorMsg"
 import Loading from "../Loading/Loading"
 import { Link, useNavigate } from "react-router-dom"
-import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
 import { toggleActions } from '../Store/Store';
 import {register} from '../Store/Actions/userActions';
@@ -23,7 +22,7 @@ const Register = ({ title, children }) => {
     const submitHandler = async (par) => {
         par.preventDefault()  //imp line for submit form
         // console.log(email,password);
-        if (password != confirmpassword) {
+        if (password !== confirmpassword) {
             setErrormsg("Passwords do not match");
         }else{
             dispatch(register(name, email, password));
@@ -54,7 +53,7 @@ const Register = ({ title, children }) => {
 
                     <Form onSubmit={submitHandler} style={{ paddingLeft: "10px", paddingRight: "10px" }}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Control type="email" placeholder="  &#xf007; Enter Name " onChange={(e) => setName(e.target.value)} style={{ fontFamily: "FontAwesome", fontSize: "20px", borderRadius: "20px" }}
+                            <Form.Control placeholder="  &#xf007; Enter Name " onChange={(e) => setName(e.target.value)} style={{ fontFamily: "FontAwesome", fontSize: "20px", borderRadius: "20px" }}
                             />
                         </Form.Group>
                         <Form.Group className="mb-1" controlId="formBasicEmail">
