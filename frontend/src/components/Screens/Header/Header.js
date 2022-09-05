@@ -23,8 +23,8 @@ const Header = () => {
         <Container>
           <Nav className="me-auto" id="mea" >
             <Nav.Link href="#home" id="topic" >Home</Nav.Link>
-            <Nav.Link href="#pricing" id="topic">View Events</Nav.Link>
-            <Nav.Link href="#pricing" id="topic">Organize Events </Nav.Link>
+            <Nav.Link href="/landingscreen" id="topic">View Events</Nav.Link>
+            <Nav.Link href="/organizeevent" id="topic">Organize Events </Nav.Link>
             <Nav.Link href="/" id="ltopic" onClick={logHandler}>Logout</Nav.Link>
           </Nav>
         </Container>

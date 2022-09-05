@@ -1,5 +1,5 @@
 const express=require('express');
-const { getEvents, createEvent, getEventById, updateEvent, deleteEvent } = require('../Controllers/eventController');
+const { getEvents, createEvent,getEventscreatedbyparticularperson, getEventById, updateEvent, deleteEvent } = require('../Controllers/eventController');
 const { protect } = require('../middlewares/authMiddleware');
 const router=express.Router()
 
@@ -7,6 +7,7 @@ const router=express.Router()
 router.route('/').get(protect, getEvents);  //protect is middleware
 //here on get request it would send getEvents res.json file 
 
+router.route('/get').get(protect,getEventscreatedbyparticularperson);
 // to create a event
 router.route('/create').post(protect, createEvent);
 

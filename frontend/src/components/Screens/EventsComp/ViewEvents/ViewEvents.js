@@ -19,16 +19,22 @@ const ViewEvents = () => {
   const userLogin = useSelector((state) => state.login.userLogin);
   const { userInfo } = userLogin;
   const events = useSelector((state) => state.event.events);
+  // const token=JSON.parse(localStorage.getItem('userInfo')).token;
   useEffect(() => {
     dispatch(listEvents());
+
     if (!userInfo) {
       navigate("/");
     }
-  }, [userInfo,]);
+  }, [userInfo]);
 
   const rsvp_button = () => {
+    
     dispatch(toggleActions.rsvp());
   }
+  
+
+  
   return (
     <>
       {/* {error && <ErrorMsg msg={error}></ErrorMsg>} */}
@@ -36,8 +42,7 @@ const ViewEvents = () => {
       <h1 id='heading_events'> Browse Events  </h1>
       {loading && <Loading />}
       {events && events.map((single) => (
-        
-        <Card id="card">
+        <Card id="card" key={single._id}>
           <Card.Header id='header'>{single.title_of_event}</Card.Header>
           <Card.Body>
             <Card.Title id='content'>{single.content}</Card.Title>
@@ -46,7 +51,7 @@ const ViewEvents = () => {
               <b>Time : </b>{single.time_of_event}
               
             </Card.Text>
-           {rsvp && <Button variant="success" style={{display:"flex"}} onClick={rsvp_button}> <div style={{paddingRight:"8px"}}><i class="fa-solid fa-check"></i></div>   RSVP</Button>}
+           {rsvp && <Button variant="success" style={{display:"flex"}} onClick={rsvp_button}> <div style={{paddingRight:"8px"}}><i className="fa-solid fa-check"></i></div>   RSVP</Button>}
            {!rsvp && <Button variant="primary" onClick={rsvp_button}> RSVP</Button>}
           </Card.Body>
         </Card>

@@ -21,7 +21,8 @@ const eventSchema = mongoose.Schema(
         user:{
             type:mongoose.Schema.Types.ObjectId,
             required:true,
-            ref:"User",  // this means it would call user model which is declared in userModel.js see line 43 in userModel.js
+            ref:"User",  
+            // this means it would call user model which is declared in userModel.js see line 43 in userModel.js
         },
     },
     {

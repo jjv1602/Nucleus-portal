@@ -9,7 +9,7 @@ const logger = reduxLogger.createLogger();
 
 const toggleSlice = createSlice({
     name: 'login_register_toggle',
-    initialState: { want_to_login: true,rsvp:false },
+    initialState: { want_to_login: true,rsvp:false,create:false},
     reducers: {
         login(state) {
             // islogin:!state.islogin
@@ -20,6 +20,10 @@ const toggleSlice = createSlice({
         },
         rsvp(state){
             state.rsvp=!state.rsvp;
+        },
+
+        createstate(state){
+            state.create=!state.create;
         },
     }
 });
@@ -92,6 +96,7 @@ const eventSlice = createSlice({
             success: false,
         },
         events: [],
+        userCreatedEvents:[],
     },
     reducers: {
         EVENT_LIST_REQUEST(state, action) {
@@ -100,6 +105,10 @@ const eventSlice = createSlice({
         EVENT_LIST_SUCCESS(state, action) {
             state.userEvent.loading = false;
             state.events = action.payload;  
+        },
+        USER_CREATED_Events(state,action){
+            state.userEvent.loading = false;
+            state.userCreatedEvents = action.payload;
         },
         EVENT_LIST_FAIL(state, action) {
             state.userEvent.loading = false;

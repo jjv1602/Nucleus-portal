@@ -5,15 +5,22 @@ const getEvents=expressAsyncHandler(async(req,res)=>{
 
     // this would display all the notes irrespective of user  
     const events=await Event.find();
-
+    console.log
     // to find display event created by a particular mail 
     // const Event = await Event.find({ user: req.user._id });
     res.json(events);
 
 });
+const getEventscreatedbyparticularperson=expressAsyncHandler(async(req,res)=>{
+    // to find display event created by a particular mail 
+
+    const Events = await Event.find({ user: user_id });
+    res.json(Events);
+});
+
 const createEvent = expressAsyncHandler(async (req, res) => {
-    const { title_of_event, content, time_of_event,date_of_event} = req.body;
-  
+    const { title_of_event,content,time_of_event,date_of_event} = req.body;
+
     if (!title_of_event || !content || !time_of_event || !date_of_event) {
       res.status(400);
       throw new Error("Please Fill all the feilds");
@@ -85,4 +92,4 @@ const deleteEvent = expressAsyncHandler(async (req, res) => {
 
 
 
-module.exports={getEvents,createEvent,getEventById,updateEvent,deleteEvent};
+module.exports={getEvents,createEvent,getEventById,updateEvent,deleteEvent,getEventscreatedbyparticularperson};
