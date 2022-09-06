@@ -6,6 +6,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LandingPg from './components/Screens/LandingPg/LandingPg';
 import OrganizeEvents from './components/Screens/OrganizeEvents/OrganizeEvents';
+import EditEvents from './components/Screens/OrganizeEvents/EditEvents/EditEvents';
 const App = () => {
   return (
     <BrowserRouter>
@@ -15,6 +16,7 @@ const App = () => {
      <Route path="/register" element={<StartPg />} />
      <Route path="/landingscreen" element={<LandingPg />} />
      <Route path="/organizeevent" element={<OrganizeEvents />} />
+     <Route path="/events/:id" element={<EditEvents />} />
     
    </Routes>
    </BrowserRouter>

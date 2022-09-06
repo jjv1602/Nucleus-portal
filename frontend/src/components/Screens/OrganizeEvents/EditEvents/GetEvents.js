@@ -3,6 +3,7 @@ import { Button, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { listuserCreatedEvents } from '../../../Store/Actions/eventActions'
+import {deleteEvent} from '../../../Store/Actions/eventActions'
 import '../EditEvents/GetEvents.css'
 const GetEvents = () => {
   const dispatch = useDispatch();
@@ -11,11 +12,13 @@ const GetEvents = () => {
   const { userInfo } = userLogin;
   useEffect(() => {
     dispatch(listuserCreatedEvents());
-    console.log(events);
-    if (!userInfo) {
+  }, [userInfo,events]);   // important putting events inside useEffect so whenever delete takes place events would update and map value would also be updated
 
+    const deleteHandler = (id) => {
+      if (window.confirm("Are you sure?")) {
+        dispatch(deleteEvent(id));
+      }
     }
-  }, [userInfo]);
 
   return (
     <>
@@ -31,12 +34,12 @@ const GetEvents = () => {
                 <b>Date : </b>{single.date_of_event.substring(0, 10)} <br></br>
                 <b>Time : </b>{single.time_of_event}
               </Card.Text>
-              <Button variant="primary" style={{margin:"1%"}} active>
+              <Button variant="primary" style={{margin:"1%"}} active href={`/events/${single._id}`}>
                 EDIT 
               </Button>
-              <Button variant="primary" style={{margin:"1%"}} active>
+             <Button variant="primary" style={{margin:"1%"}} active onClick={()=>deleteHandler(single._id)}> 
                 Delete
-              </Button>
+              </Button> 
             </Card.Body>
           </Card>
 

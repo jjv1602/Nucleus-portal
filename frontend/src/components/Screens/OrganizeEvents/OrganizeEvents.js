@@ -34,9 +34,10 @@ const OrganizeEvents = () => {
             Cancel creating event 
           </Button>} 
           {create && <CreateEvents/>}
+          
         </div>
-
         <GetEvents></GetEvents>
+      
       </section>
         
     </>

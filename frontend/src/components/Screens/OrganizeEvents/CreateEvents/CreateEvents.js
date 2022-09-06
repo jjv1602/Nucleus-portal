@@ -28,7 +28,7 @@ const CreateEvents = () => {
     else {
       setdateError(false);
       dispatch(createEventAction(title_of_event,content,time_of_event,date_of_event));
-      // resetHandler();
+      resetHandler();   //to clear data after submit is clicked
      
     }
   }

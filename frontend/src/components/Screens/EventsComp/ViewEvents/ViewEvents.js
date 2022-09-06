@@ -40,7 +40,7 @@ const ViewEvents = () => {
       {/* {error && <ErrorMsg msg={error}></ErrorMsg>} */}
     <section className='events'>
       <h1 id='heading_events'> Browse Events  </h1>
-      {loading && <Loading />}
+      {/* {loading && <Loading />} */}
       {events && events.map((single) => (
         <Card id="card" key={single._id}>
           <Card.Header id='header'>{single.title_of_event}</Card.Header>

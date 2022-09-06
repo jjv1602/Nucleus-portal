@@ -80,7 +80,6 @@ const deleteEvent = expressAsyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("You can't perform this action");
   }
-
   if (event) {
     await event.remove();
     res.json({ message: "Note Removed" });

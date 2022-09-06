@@ -12,7 +12,7 @@ export const listEvents = () => async (dispatch) => {
       },
     };
   
-    const { data } = await axios.get("api/events", config);
+    const { data } = await axios.get("/api/events", config);
     dispatch(eventActions.EVENT_LIST_SUCCESS(data));
   } catch (error) {
     console.log("error");
@@ -40,9 +40,9 @@ export const createEventAction=(title_of_event,content,time_of_event,date_of_eve
       },
     };
   
-    const { data } = await axios.post(`api/events/create`,{title_of_event,content,time_of_event,date_of_event},config);
+    const { data } = await axios.post(`/api/events/create`,{title_of_event,content,time_of_event,date_of_event},config);
     dispatch(eventActions.EVENT_CREATE_SUCCESS(data));
-    window.location.reload(false);   // imp so that this event displays at bottom of the page
+    
   } catch (error) {
     console.log("error");
     const message =
@@ -65,7 +65,7 @@ export const listuserCreatedEvents = () => async (dispatch) => {
       },
     };
   
-    const { data } = await axios.get("api/events/get", config);
+    const { data } = await axios.get("/api/events/get", config);
     console.log(data);
     dispatch(eventActions.USER_CREATED_Events(data));
   } catch (error) {
@@ -77,4 +77,50 @@ export const listuserCreatedEvents = () => async (dispatch) => {
     dispatch(eventActions.EVENT_LIST_FAIL(message));
   }
 
+};
+
+export const deleteEvent = (id) => async (dispatch) => {
+  try {
+    dispatch(eventActions.EVENT_DELETE_REQUEST());
+    const userInfo=JSON.parse(localStorage.getItem('userInfo'));
+    const token=userInfo.token;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,   //only Bearer token is accepted so we send token
+      },
+    };
+  
+    const { data } = await axios.delete(`api/events/${id}`, config);
+    dispatch(eventActions.EVENT_DELETE_SUCCESS(data));
+  } catch (error) {
+    console.log("error");
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch(eventActions.EVENT_DELETE_FAIL(message));
+  }
+};
+
+export const updateEvent = (id,title_of_event,content,time_of_event,date_of_event) => async (dispatch) => {
+  try {
+    dispatch(eventActions.EVENT_UPDATE_REQUEST());
+    const userInfo=JSON.parse(localStorage.getItem('userInfo'));
+    const token=userInfo.token;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,   //only Bearer token is accepted so we send token
+      },
+    };
+  
+    const { data } = await axios.put(`/api/events/${id}`,{title_of_event,content,time_of_event,date_of_event},config);
+    dispatch(eventActions.EVENT_UPDATE_SUCCESS(data));
+  } catch (error) {
+    console.log("error");
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch(eventActions.EVENT_UPDATE_FAIL(message));
+  }
 };
