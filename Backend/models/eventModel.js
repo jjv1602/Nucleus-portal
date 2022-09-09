@@ -24,6 +24,13 @@ const eventSchema = mongoose.Schema(
             ref:"User",  
             // this means it would call user model which is declared in userModel.js see line 43 in userModel.js
         },
+        rsvp:{
+            type:Array,
+        },
+        toggle_rsvp_list:{
+            type:Boolean,
+            default:false,
+        }
     },
     {
         timestamps: true,

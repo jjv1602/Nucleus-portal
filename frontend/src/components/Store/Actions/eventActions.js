@@ -13,6 +13,7 @@ export const listEvents = () => async (dispatch) => {
     };
   
     const { data } = await axios.get("/api/events", config);
+    console.log(data);
     dispatch(eventActions.EVENT_LIST_SUCCESS(data));
   } catch (error) {
     console.log("error");
@@ -66,7 +67,7 @@ export const listuserCreatedEvents = () => async (dispatch) => {
     };
   
     const { data } = await axios.get("/api/events/get", config);
-    console.log(data);
+    // console.log(data);
     dispatch(eventActions.USER_CREATED_Events(data));
   } catch (error) {
     console.log("error");
@@ -106,6 +107,7 @@ export const updateEvent = (id,title_of_event,content,time_of_event,date_of_even
   try {
     dispatch(eventActions.EVENT_UPDATE_REQUEST());
     const userInfo=JSON.parse(localStorage.getItem('userInfo'));
+    console.log('userInfo');
     const token=userInfo.token;
     const config = {
       headers: {
@@ -124,3 +126,55 @@ export const updateEvent = (id,title_of_event,content,time_of_event,date_of_even
     dispatch(eventActions.EVENT_UPDATE_FAIL(message));
   }
 };
+
+
+export const rsvp_add_name=(id)=>async(dispatch)=>{
+  try {
+    const userInfo=JSON.parse(localStorage.getItem('userInfo'));
+    const token=userInfo.token;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,   //only Bearer token is accepted so we send token
+      },
+    };
+    
+    const username=JSON.parse(localStorage.getItem('userInfo')).name;
+    const { data } = await axios.put(`/api/events/${id}/rsvp`,{username},config);
+    console.log("rsvp");
+    console.log(data);
+    // window.location.reload();
+  
+  } catch (error) {
+    console.log("error");
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+  }
+}
+
+
+export const rsvp_remove_name=(id)=>async(dispatch)=>{
+  try {
+    const userInfo=JSON.parse(localStorage.getItem('userInfo'));
+    const token=userInfo.token;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,   //only Bearer token is accepted so we send token
+      },
+    };
+    
+    const username=JSON.parse(localStorage.getItem('userInfo')).name;
+    const { data } = await axios.put(`/api/events/${id}/remove_rsvp`,{username},config);
+    // window.location.reload();
+    
+    
+  
+  } catch (error) {
+    console.log("error");
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+  }
+}

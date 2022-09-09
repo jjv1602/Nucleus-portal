@@ -1,58 +1,63 @@
 const expressAsyncHandler = require("express-async-handler");
 const res = require("express/lib/response");
-const Event=require("../models/eventModel");
-const getEvents=expressAsyncHandler(async(req,res)=>{
+const Event = require("../models/eventModel");
+const User = require("../models/userModels");
+const getEvents = expressAsyncHandler(async (req, res) => {
 
-    // this would display all the notes irrespective of user  
-    const events=await Event.find();
-    console.log
-    // to find display event created by a particular mail 
-    // const Event = await Event.find({ user: req.user._id });
-    res.json(events);
+  // this would display all the notes irrespective of user  
+  const events = await Event.find();
+  console.log
+  // to find display event created by a particular mail 
+  // const Event = await Event.find({ user: req.user._id });
+  res.json(events);
 
 });
-const getEventscreatedbyparticularperson=expressAsyncHandler(async(req,res)=>{
-    // to find display event created by a particular mail 
+const getEventscreatedbyparticularperson = expressAsyncHandler(async (req, res) => {
+  // to find display event created by a particular mail 
 
-    const Events = await Event.find({ user: user_id });
-    res.json(Events);
+  const Events = await Event.find({ user: user_id });
+  res.json(Events);
 });
 
 const createEvent = expressAsyncHandler(async (req, res) => {
-    const { title_of_event,content,time_of_event,date_of_event} = req.body;
+  const { title_of_event, content, time_of_event, date_of_event } = req.body;
 
-    if (!title_of_event || !content || !time_of_event || !date_of_event) {
-      res.status(400);
-      throw new Error("Please Fill all the feilds");
-      return;
-    } else {
-      // here user_id is coming from authMiddleware see line 20
-      const event = new Event({title_of_event, content, time_of_event ,date_of_event,user:user_id });  
-  
-      const createdEvent = await event.save(); // after saving it is going to send a note which we are saving in createdNote and in next line we storing that event inside json
-  
-      res.status(201).json(createdEvent);
-    }
-  });
-  
-const getEventById=expressAsyncHandler(async(req,res)=>{
+  if (!title_of_event || !content || !time_of_event || !date_of_event) {
+    res.status(400);
+    throw new Error("Please Fill all the feilds");
+    return;
+  } else {
+    // here user_id is coming from authMiddleware see line 20
+    const event = new Event({ title_of_event, content, time_of_event, date_of_event, user: user_id });
 
-  const event=await Event.findById(req.params.id); // derive id from url using req.params.id
+    const createdEvent = await event.save(); // after saving it is going to send a note which we are saving in createdNote and in next line we storing that event inside json
+
+    res.status(201).json(createdEvent);
+  }
+});
+
+const getEventById = expressAsyncHandler(async (req, res) => {
+
+  const event = await Event.findById(req.params.id); // derive id from url using req.params.id
   // if id exists then display event
-  if(event){
+  if (event) {
     res.json(event);
   }
-  else{
-    res.status(404).json({message:"No Event"})
+  else {
+    res.status(404).json({ message: "No Event" })
   }
 
 })
-const updateEvent=expressAsyncHandler(async(req,res)=>{
 
-  const { title_of_event, content, time_of_event,date_of_event} = req.body;
+// Put request Event
+const updateEvent = expressAsyncHandler(async (req, res) => {
+
+  const { title_of_event, content, time_of_event, date_of_event } = req.body;
 
   const event = await Event.findById(req.params.id);
-
+  // const us=await User.findById(event.user);
+  // console.log(us.email);
+  // console.log(us.name);
   // checking whether user who made the event is the same user who is updating
   if (event.user.toString() !== user_id.toString()) {
     res.status(401);
@@ -89,6 +94,39 @@ const deleteEvent = expressAsyncHandler(async (req, res) => {
   }
 });
 
+const rsvp = expressAsyncHandler(async (req, res) => {
+  const { username } = req.body;
+  // here user_id is coming from authMiddleware see line 20
+  // const event = new Event({title_of_event, content, time_of_event ,date_of_event,user:user_id });  
+  const event = await Event.findById(req.params.id);  //params.id means take id from url
+  // if username not saved then only save the username
+  if (event.rsvp.indexOf(username) == -1) {
+    event.rsvp.push(username);
+    const rsvp_event = await event.save();
+    res.json(rsvp_event);
+  }
+  else {
+    res.json({ message: "Username already saved" });
+    
+  }
 
+}
+);
+const remove_rsvp = expressAsyncHandler(async (req, res) => {
+  const { username } = req.body;
+  // here user_id is coming from authMiddleware see line 20
+  // const event = new Event({title_of_event, content, time_of_event ,date_of_event,user:user_id });  
+  const event = await Event.findById(req.params.id);  //params.id means take id from url
+  if (event.rsvp.indexOf(username) != -1) {
+    event.rsvp.pull(username);
+    const rsvp_event = await event.save();
+    res.json(rsvp_event);
+  }
+  else{
+    res.json({ message: "Username already removed" });
+  }
 
-module.exports={getEvents,createEvent,getEventById,updateEvent,deleteEvent,getEventscreatedbyparticularperson};
+}
+);
+
+module.exports = { getEvents, createEvent, getEventById, updateEvent, deleteEvent, getEventscreatedbyparticularperson, rsvp, remove_rsvp };
