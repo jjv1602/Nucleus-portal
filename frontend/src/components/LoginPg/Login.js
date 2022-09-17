@@ -52,13 +52,24 @@ const Login = () => {
           {loading && <Loading />}
         
           <Form onSubmit={submitHandler} style={{ paddingLeft: "10px", paddingRight: "10px" }}>
+            
             <Form.Group className="mb-1" controlId="formBasicEmail">
-              <Form.Control type="email" placeholder="  &#xf007;  Enter email " onChange={(e) => setEmail(e.target.value)} style={{ fontFamily: "FontAwesome", fontSize: "20px", borderRadius: "20px" }}
+              <div style={{border:"solid #242442 2px",position:"relative",height:"50px",borderRadius:"0px 0px 20px 20px",borderWidth:"0 0.1px 5px 0px" } }>
+                <div>
+                  <i class="fa-solid fa-user fa-2x" style={{position:"absolute",width:"20%",height:"100%",margin:"5px"}}></i>
+                </div>
+              <Form.Control type="email" placeholder="Enter email " onChange={(e) => setEmail(e.target.value)} style={{ fontSize: "20px",position:"absolute",width:"90%",height:"100%" , marginLeft:"10%",borderRadius:"0px 0px 20px 0px"}}
               />
+              </div>  
             </Form.Group>
             <Form.Group className="mb-2" controlId="formBasicPassword" style={{ paddingTop: "20px" }}>
-              <Form.Control type="password" placeholder="  &#xf023;    Password" onChange={(p) => setPassword(p.target.value)} style={{ fontFamily: "FontAwesome", fontSize: "20px", borderRadius: "20px" }}
+            <div style={{position:"relative",height:"50px" ,border:"solid #242442 2px",borderWidth:"0 0.1px 5px 0px",borderRadius:"0px 0px 20px 20px" } }>
+            <div>
+            <i class="fa-solid fa-lock fa-2x" style={{position:"absolute",width:"20%",height:"100%",margin:"5px"}}></i>
+            </div>
+              <Form.Control type="password" placeholder=" Password" onChange={(p) => setPassword(p.target.value)} style={{ fontSize: "20px",position:"absolute",width:"90%",height:"100%" , marginLeft:"10%",borderRadius:"0px 0px 20px 0px"}}
               />
+            </div> 
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicCheckbox">
               <Form.Check type="checkbox" label="Check me out" />

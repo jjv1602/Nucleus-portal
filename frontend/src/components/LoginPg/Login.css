@@ -14,8 +14,4 @@
    
 }
 
-.mb-2 placeholder::before{
-    content: "\f023";
-    font-family: 'FontAwesome';
-    font-size:20px;
-}
+

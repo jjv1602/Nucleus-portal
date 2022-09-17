@@ -26,8 +26,8 @@ const StartPg = () => {
     <>
         <section className='sec1'>
           <section className='sec1_img'>
-            <CardGroup style={{ position: "absolute", top: "20%", left: "14%", right: "10%", height: "50%" }}>
-              <Card  style={{backgroundColor:"#242442"}}>
+            <CardGroup className="cardGrp">
+              <Card id="card1" style={{backgroundColor:"#242442"}}>
                 <Card.Body>
                   
                   <Card.Text>
@@ -40,7 +40,7 @@ const StartPg = () => {
                 </Card.Body>
               </Card>
 
-              <Card>
+              <Card id="card2">
                  <Card.Body>
                   {want_to_login &&<Login />}
                   {!want_to_login && <Register/>}
