@@ -32,6 +32,8 @@ const StartPg = () => {
                   
                   <Card.Text>
                     <section id="heading" >Event Management Portal </section>
+                    <br></br>
+                    <br></br>
                    <section id="body"> 
                     You can sign in to access with your 
                     existing account
