@@ -20,7 +20,7 @@ const getEventscreatedbyparticularperson = expressAsyncHandler(async (req, res) 
 });
 
 const createEvent = expressAsyncHandler(async (req, res) => {
-  const { title_of_event, content, time_of_event, date_of_event } = req.body;
+  const { title_of_event, content, time_of_event, date_of_event,seats_of_event } = req.body;
 
   if (!title_of_event || !content || !time_of_event || !date_of_event) {
     res.status(400);
@@ -28,7 +28,7 @@ const createEvent = expressAsyncHandler(async (req, res) => {
     return;
   } else {
     // here user_id is coming from authMiddleware see line 20
-    const event = new Event({ title_of_event, content, time_of_event, date_of_event, user: user_id });
+    const event = new Event({ title_of_event, content, time_of_event, date_of_event,seats_of_event,user: user_id });
 
     const createdEvent = await event.save(); // after saving it is going to send a note which we are saving in createdNote and in next line we storing that event inside json
 
@@ -52,7 +52,7 @@ const getEventById = expressAsyncHandler(async (req, res) => {
 // Put request Event
 const updateEvent = expressAsyncHandler(async (req, res) => {
 
-  const { title_of_event, content, time_of_event, date_of_event } = req.body;
+  const { title_of_event, content, time_of_event, date_of_event,seats_of_event } = req.body;
 
   const event = await Event.findById(req.params.id);
   // const us=await User.findById(event.user);
@@ -69,6 +69,7 @@ const updateEvent = expressAsyncHandler(async (req, res) => {
     event.content = content;
     event.time_of_event = time_of_event;
     event.date_of_event = date_of_event;
+    event.seats_of_event=seats_of_event;
 
     const updatedEvent = await event.save();
     res.json(updatedEvent);
@@ -95,6 +96,7 @@ const deleteEvent = expressAsyncHandler(async (req, res) => {
 });
 
 const rsvp = expressAsyncHandler(async (req, res) => {
+  // const { username,email } = req.body;
   const { username } = req.body;
   // here user_id is coming from authMiddleware see line 20
   // const event = new Event({title_of_event, content, time_of_event ,date_of_event,user:user_id });  
@@ -102,6 +104,7 @@ const rsvp = expressAsyncHandler(async (req, res) => {
   // if username not saved then only save the username
   if (event.rsvp.indexOf(username) == -1) {
     event.rsvp.push(username);
+    // event.rsvp.push(email);
     const rsvp_event = await event.save();
     res.json(rsvp_event);
   }

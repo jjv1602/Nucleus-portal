@@ -48,7 +48,7 @@ const Login = () => {
       <section className='Login_pg'>
         <section id="cardt">Sign In </section><br></br><br></br><br></br>
         <div>
-
+        {error && <ErrorMsg msg="Incorrect Username or Password"/>}
           {loading && <Loading />}
         
           <Form onSubmit={submitHandler} style={{ paddingLeft: "10px", paddingRight: "10px" }}>

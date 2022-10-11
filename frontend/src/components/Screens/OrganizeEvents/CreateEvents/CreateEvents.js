@@ -8,6 +8,7 @@ const CreateEvents = () => {
   const [content, setContent] = useState("");
   const [time_of_event, setTime] = useState("");
   const [date_of_event, setDate] = useState("");
+  const [seats_of_event, setSeats] = useState("");
   const [dateError, setdateError] = useState(false);
   const success=useSelector((state)=>state.event.success);
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const CreateEvents = () => {
     }
     else {
       setdateError(false);
-      dispatch(createEventAction(title_of_event,content,time_of_event,date_of_event));
+      dispatch(createEventAction(title_of_event,content,time_of_event,date_of_event,seats_of_event));
       resetHandler();   //to clear data after submit is clicked
      
     }
@@ -36,6 +37,7 @@ const CreateEvents = () => {
   const resetHandler = () => {
     setTitle("");
     setContent("");
+    setSeats("");
     setTime("");
     setDate("");
   };
@@ -69,6 +71,17 @@ const CreateEvents = () => {
                   rows={2}  // height of the input box
                   onChange={(e) => setContent(e.target.value)}
                   required
+                />
+              </Form.Group>
+              <br></br>
+              <Form.Group controlId="">
+                <Form.Label>Total Seats for the Event</Form.Label>
+                <Form.Control
+                  type="number"
+                  value={seats_of_event}
+                  placeholder="Enter tota; seats"
+                  onChange={(e) => setSeats(e.target.value)}
+                  required // important making this box compulsory to fill
                 />
               </Form.Group>
               <br></br>

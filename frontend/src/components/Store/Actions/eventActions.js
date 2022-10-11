@@ -28,7 +28,7 @@ export const listEvents = () => async (dispatch) => {
 
 
 // imp variable names declared in backend event model and event controller should be same as declared here 
-export const createEventAction=(title_of_event,content,time_of_event,date_of_event)=> async (dispatch) => {
+export const createEventAction=(title_of_event,content,time_of_event,date_of_event,seats_of_event)=> async (dispatch) => {
   try {
     dispatch(eventActions.EVENT_CREATE_REQUEST());
 
@@ -41,7 +41,7 @@ export const createEventAction=(title_of_event,content,time_of_event,date_of_eve
       },
     };
   
-    const { data } = await axios.post(`/api/events/create`,{title_of_event,content,time_of_event,date_of_event},config);
+    const { data } = await axios.post(`/api/events/create`,{title_of_event,content,time_of_event,date_of_event,seats_of_event},config);
     dispatch(eventActions.EVENT_CREATE_SUCCESS(data));
     
   } catch (error) {
@@ -103,7 +103,7 @@ export const deleteEvent = (id) => async (dispatch) => {
   }
 };
 
-export const updateEvent = (id,title_of_event,content,time_of_event,date_of_event) => async (dispatch) => {
+export const updateEvent = (id,title_of_event,content,time_of_event,date_of_event,seats_of_event) => async (dispatch) => {
   try {
     dispatch(eventActions.EVENT_UPDATE_REQUEST());
     const userInfo=JSON.parse(localStorage.getItem('userInfo'));
@@ -115,7 +115,7 @@ export const updateEvent = (id,title_of_event,content,time_of_event,date_of_even
       },
     };
   
-    const { data } = await axios.put(`/api/events/${id}`,{title_of_event,content,time_of_event,date_of_event},config);
+    const { data } = await axios.put(`/api/events/${id}`,{title_of_event,content,time_of_event,date_of_event,seats_of_event},config);
     dispatch(eventActions.EVENT_UPDATE_SUCCESS(data));
   } catch (error) {
     console.log("error");
@@ -139,7 +139,9 @@ export const rsvp_add_name=(id)=>async(dispatch)=>{
     };
     
     const username=JSON.parse(localStorage.getItem('userInfo')).name;
+    // const email=JSON.parse(localStorage.getItem('userInfo')).email;
     const { data } = await axios.put(`/api/events/${id}/rsvp`,{username},config);
+    // const { data } = await axios.put(`/api/events/${id}/rsvp`,{username,email},config);
     console.log("rsvp");
     console.log(data);
     // window.location.reload();

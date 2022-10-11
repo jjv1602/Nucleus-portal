@@ -18,6 +18,10 @@ const eventSchema = mongoose.Schema(
             type: Date,
             required: true,
         },
+        seats_of_event: {
+            type:Number,
+            required: true,
+        },
         user:{
             type:mongoose.Schema.Types.ObjectId,
             required:true,

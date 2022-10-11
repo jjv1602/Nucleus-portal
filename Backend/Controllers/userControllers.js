@@ -60,4 +60,23 @@ const authUser = asyncHandler(async (req, res) => {
       throw new Error("Invalid Email or Password");
     }
   });
-module.exports = { registerUser,authUser };
+
+const getMail = asyncHandler(async (req, res) => {
+    const {name} = req.body;
+    
+    const user = await User.findOne({name});
+    // console.log(user);
+    if (user) {
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+      });
+    } else {
+      res.status(401);
+      throw new Error("Invalid Email or Password");
+    }
+  });
+
+
+module.exports = { registerUser,authUser,getMail };

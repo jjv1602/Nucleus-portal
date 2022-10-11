@@ -14,7 +14,7 @@ const EditEvents = ({ match }) => {
   const [time_of_event, setTime] = useState("");
   const [date_of_event, setDate] = useState("");
   const [dateError, setdateError] = useState(false);
-
+  const [seats_of_event, setSeats] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -27,6 +27,7 @@ const EditEvents = ({ match }) => {
       setContent(data.content);
       setTime(data.time_of_event);
       setDate(data.date_of_event.substring(0, 10));
+      setSeats(data.seats_of_event);
     };
     fetching();
   }, []);
@@ -36,6 +37,7 @@ const EditEvents = ({ match }) => {
     setContent("");
     setTime("");
     setDate("");
+    setSeats("");
   };
 
   const updateHandler = (e) => {
@@ -47,8 +49,8 @@ const EditEvents = ({ match }) => {
     }
     else {
       setdateError(false);
-      dispatch(updateEvent(id, title_of_event, content, time_of_event, date_of_event));
-      console.log({ id });
+      dispatch(updateEvent(id, title_of_event, content, time_of_event, date_of_event,seats_of_event));
+      // console.log({ id });
       resetHandler();
       navigate('/organizeevent');
     }
@@ -100,7 +102,16 @@ const EditEvents = ({ match }) => {
                 onChange={(e) => setDate(e.target.value)}
                 required
               />
-
+              <Form.Group controlId="">
+                <Form.Label>Total Seats for the Event</Form.Label>
+                <Form.Control
+                  type="number"
+                  value={seats_of_event}
+                  placeholder="Enter tota; seats"
+                  onChange={(e) => setSeats(e.target.value)}
+                  required // important making this box compulsory to fill
+                />
+              </Form.Group>
             </Form.Group>
             <br></br>
             <Form.Group controlId="content" style={{ width: "50%" }}>
