@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { Accordion, Badge, Button, Card, Form, ListGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { listuserCreatedEvents } from '../../../Store/Actions/eventActions'
-import { deleteEvent } from '../../../Store/Actions/eventActions'
+import { getmailid, listuserCreatedEvents } from '../../../Store/Actions/eventActions'
+import { deleteEvent,cleararr } from '../../../Store/Actions/eventActions'
 import { toggleActions } from '../../../Store/Store';
 import '../EditEvents/GetEvents.css'
 const GetEvents = () => {
@@ -12,42 +12,41 @@ const GetEvents = () => {
   const dispatch = useDispatch();
   const events = useSelector((state) => state.event.userCreatedEvents);
   const userLogin = useSelector((state) => state.login.userLogin);
-  const [mail, setMail] = useState("");
   const [search, setSearch] = useState("");
-  const [open, setOpen] = useState(false);
+  const [count_of_rsvp,setCount]=useState(0);
   const [flag, setFlag] = useState(new Map());
   const { userInfo } = userLogin;
+  const exceldata=useSelector((state)=>state.register.mailid);
   useEffect(() => {
     dispatch(listuserCreatedEvents());
   }, [userInfo, events]);   // important putting events inside useEffect so whenever delete takes place events would update and map value would also be updated
-
+  useEffect(()=>{
+    download();
+  },[exceldata])
   const deleteHandler = (id) => {
+    console.log("delet handler");
     if (window.confirm("Are you sure?")) {
       dispatch(deleteEvent(id));
     }
   }
-  const getMail = (name) => async () => {
-    // setOpen(!open)
-    try {
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
+  
+  function D(single){
+    // const dummy=[{id:Math.random().toString(),name:"test",eid:"da@gmail.com"}];
+    // setData([dummy]);
+    setCount(single.rsvp.length);
+  dispatch(cleararr());
+    single.rsvp.map(async i=>{
+      dispatch(getmailid(i));
+    })
+  //  download(single.rsvp.length);
+ }
 
-      const { data } = await axios.post(
-        "/api/users/getmail",
-        { name },
-        config
-      );
-      // console.log(data);
-      setMail(data.email);
-
-    } catch (error) {
-
+  function download(){
+    if(count_of_rsvp===exceldata.length){
+      console.log("Download function called ");
+      console.log(exceldata);
     }
   }
-
   return (
     <>
       <section className='events2'>
@@ -67,7 +66,6 @@ const GetEvents = () => {
         .map((single) => (
          <Accordion>        
           <Card id="card" key={single._id}>
-          
           <Card.Header id='header'>{single.title_of_event}</Card.Header>
             
             <Card.Body>
@@ -83,6 +81,13 @@ const GetEvents = () => {
               <Button variant="primary" style={{ margin: "1%" }} active onClick={() => deleteHandler(single._id)}>
                 Delete
               </Button>
+              <Button variant="primary" style={{ margin: "1%" }} active onClick={() => {
+                console.log("excel data on click view");
+                console.log(exceldata);
+                }}>
+                view
+              </Button>
+              <Button onClick={()=>{D(single)}}>Download as .csv file</Button>
               <Button variant="success" style={{ margin: "1%" }} onClick={() => {
                 if (flag.get(single._id)) {
                   setFlag(new Map(flag.set(single._id, false)));
@@ -108,11 +113,11 @@ const GetEvents = () => {
                     <>
                     
                     <Accordion.Item eventKey={index} style={{margin:"auto",marginBottom:"0",width:"80%"}}>
-                    <Accordion.Header  onClick={getMail(i)}  style={{border:"0.1px solid #000000"}} >
+                    <Accordion.Header  style={{border:"0.1px solid #000000"}} >
                               {index + 1} - {i}
                       </Accordion.Header>
                       <Accordion.Body style={{border:"0.5px solid #000000", fontSize: "2vh",fontFamily: "'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"}}>    
-                              <b>Email Address : </b>  {mail} 
+                              <b>Email Address : </b>  
                       </Accordion.Body>    
                       <br></br>
                       </Accordion.Item>

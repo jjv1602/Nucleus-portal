@@ -1,6 +1,6 @@
 import { getType } from "@reduxjs/toolkit";
 import axios from "axios";
-import { eventActions, loginActions } from "../Store";
+import { eventActions, loginActions, registerActions } from "../Store";
 export const listEvents = () => async (dispatch) => {
   try {
     dispatch(eventActions.EVENT_LIST_REQUEST());
@@ -127,6 +127,30 @@ export const updateEvent = (id,title_of_event,content,time_of_event,date_of_even
   }
 };
 
+export const getmailid=(name)=>async(dispatch)=>{
+  try{
+   
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+    const {data}= await axios.put("/api/users/getmail",{ name },config);
+    console.log("Adaksdnakndkansdk");
+    // const temp=[{id:Math.random().toString(),name:name,eid:data.email}];
+    // setData([temp,...edata]);
+    // console.log(edata);
+    console.log(data.email);
+    console.log("name::::");
+    dispatch(registerActions.ADD_MAIL_ID({name:name,email:data.email}));
+  }catch(error){
+        console.error(`Error .${error}`);
+  }  
+}
+
+export const cleararr=()=>(dispatch)=>{
+  dispatch(registerActions.Clear_data());
+}
 
 export const rsvp_add_name=(id)=>async(dispatch)=>{
   try {

@@ -1,3 +1,4 @@
+const expressAsyncHandler = require('express-async-handler');
 const asyncHandler = require('express-async-handler')
 const User = require("../models/userModels");
 const generateToken  = require('../util/generateToken');
@@ -61,7 +62,7 @@ const authUser = asyncHandler(async (req, res) => {
     }
   });
 
-const getMail = asyncHandler(async (req, res) => {
+const getMail = expressAsyncHandler(async (req, res) => {
     const {name} = req.body;
     
     const user = await User.findOne({name});

@@ -10,5 +10,5 @@ router.route('/').post(registerUser);
 // if user goes to api/users/login it is login page
 router.route('/login').post(authUser);
 
-router.route('/getmail').post(getMail);
+router.route('/getmail').put(getMail);
 module.exports=router;
