@@ -16,8 +16,6 @@ const ViewEvents = () => {
 
   const navigate = useNavigate();
   const eventList = useSelector((state) => state.event.userEvent);
-
-  const { loading, error } = eventList;
   const [search, setSearch] = useState("");
   const userLogin = useSelector((state) => state.login.userLogin);
   const { userInfo } = userLogin;
@@ -71,8 +69,6 @@ const ViewEvents = () => {
                   dispatch(rsvp_add_name(single._id));
                 }}> RSVP</Button>
               }
-
-              {/* <div style={{display:"flex",height:"40px",width:"90px",backgroundColor: "#201c34",fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",fontSize:"10px"}}>{single.rsvp.length}  Seats Left </div> */}
               <Badge pill bg="dark" style={{ marginLeft: "10%", height: "35px", padding: "10px", fontSize: "15px" }}>{single.seats_of_event - single.rsvp.length}  Seats Left </Badge>
             </Card.Body>
           </Card>

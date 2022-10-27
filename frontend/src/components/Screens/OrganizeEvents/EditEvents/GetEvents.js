@@ -8,6 +8,8 @@ import { deleteEvent,cleararr } from '../../../Store/Actions/eventActions'
 import { toggleActions } from '../../../Store/Store';
 import { CSVDownload, CSVLink } from "react-csv";
 import '../EditEvents/GetEvents.css'
+import "aos/dist/aos.css"
+import Aos from "aos";
 const GetEvents = () => {
   const rsvp_btn = useSelector((state) => state.toggle.rsvp);
   const dispatch = useDispatch();
@@ -23,6 +25,9 @@ const GetEvents = () => {
   const { userInfo } = userLogin;
   const exceldata=useSelector((state)=>state.register.mailid);
   
+  useEffect(()=>{
+    Aos.init({duration:2000})
+  },[])
   useEffect(() => {
     dispatch(listuserCreatedEvents());
   }, [userInfo, events]);
@@ -94,7 +99,7 @@ const csvLink = {
         .reverse()
         .map((single) => (
          <Accordion>        
-          <Card id="card" key={single._id}>
+          <Card data-aos="fade-up" id="card" key={single._id}>
           <Card.Header id='header'>{single.title_of_event}</Card.Header>
             
             <Card.Body>
