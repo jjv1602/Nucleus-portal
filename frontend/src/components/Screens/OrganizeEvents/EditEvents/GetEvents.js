@@ -6,6 +6,7 @@ import { Navigate } from 'react-router-dom';
 import { getmailid, listuserCreatedEvents } from '../../../Store/Actions/eventActions'
 import { deleteEvent,cleararr } from '../../../Store/Actions/eventActions'
 import { toggleActions } from '../../../Store/Store';
+import { CSVDownload, CSVLink } from "react-csv";
 import '../EditEvents/GetEvents.css'
 const GetEvents = () => {
   const rsvp_btn = useSelector((state) => state.toggle.rsvp);
@@ -15,14 +16,21 @@ const GetEvents = () => {
   const [search, setSearch] = useState("");
   const [count_of_rsvp,setCount]=useState(0);
   const [flag, setFlag] = useState(new Map());
+  const [down, setDown] = useState(new Map());
+  const [datafetched,setdatafetched]=useState(false);
+  const [show, setShow] = useState(new Map());
+  const [btntext,setBtntext]=useState("Click to Download RSVP Data");
   const { userInfo } = userLogin;
   const exceldata=useSelector((state)=>state.register.mailid);
+  
   useEffect(() => {
     dispatch(listuserCreatedEvents());
-  }, [userInfo, events]);   // important putting events inside useEffect so whenever delete takes place events would update and map value would also be updated
+  }, [userInfo, events]);
+     // important putting events inside useEffect so whenever delete takes place events would update and map value would also be updated
   useEffect(()=>{
     download();
   },[exceldata])
+  useEffect(()=>{},[datafetched]);
   const deleteHandler = (id) => {
     console.log("delet handler");
     if (window.confirm("Are you sure?")) {
@@ -30,23 +38,44 @@ const GetEvents = () => {
     }
   }
   
+const headers = [
+  {
+    label:"Name",key:"name"
+  },
+  {
+    label:"Age",key:"eid"
+  },
+ 
+]
+ 
+const csvLink = {
+  headers:headers,
+  data: exceldata,
+  filename:"csvfile.csv",
+}
   function D(single){
     // const dummy=[{id:Math.random().toString(),name:"test",eid:"da@gmail.com"}];
     // setData([dummy]);
+    console.log("data fetched");
+    console.log(datafetched);
+
     setCount(single.rsvp.length);
-  dispatch(cleararr());
-    single.rsvp.map(async i=>{
+    dispatch(cleararr());
+    single.rsvp.map( i=>{
       dispatch(getmailid(i));
     })
-  //  download(single.rsvp.length);
  }
 
   function download(){
     if(count_of_rsvp===exceldata.length){
       console.log("Download function called ");
       console.log(exceldata);
+      setdatafetched(true);
     }
   }
+
+
+ 
   return (
     <>
       <section className='events2'>
@@ -81,13 +110,25 @@ const GetEvents = () => {
               <Button variant="primary" style={{ margin: "1%" }} active onClick={() => deleteHandler(single._id)}>
                 Delete
               </Button>
-              <Button variant="primary" style={{ margin: "1%" }} active onClick={() => {
-                console.log("excel data on click view");
-                console.log(exceldata);
-                }}>
-                view
-              </Button>
-              <Button onClick={()=>{D(single)}}>Download as .csv file</Button>
+             
+              <Button onClick={()=>
+              {
+                D(single)
+                setBtntext("Downloading ..")
+                if (down.get(single._id)) {
+                  setShow(new Map(down.set(single._id, false)));
+                  setDown(new Map(down.set(single._id, false)));
+                }
+                else {
+                  setDown(new Map(down.set(single._id, true)));
+                  setShow(new Map(down.set(single._id, true)));
+                }
+              }}
+              >Click to download data .. </Button>
+            
+              { datafetched && down.get(single._id) &&
+                <CSVLink {...csvLink} style={{fontSize:"20px",padding:"10px"}}><i class="fa-sharp fa-solid fa-download"></i></CSVLink>
+              }
               <Button variant="success" style={{ margin: "1%" }} onClick={() => {
                 if (flag.get(single._id)) {
                   setFlag(new Map(flag.set(single._id, false)));
@@ -95,7 +136,6 @@ const GetEvents = () => {
                 else {
                   setFlag(new Map(flag.set(single._id, true)));
                 }
-
               }}>
                 View RSVP List
               </Button>

@@ -5,9 +5,12 @@ import Loading from '../../../Loading/Loading';
 import { listEvents, rsvp, rsvp_add_name, rsvp_remove_name } from '../../../Store/Actions/eventActions';
 import { Accordion, Badge, Button, Card, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import Aos from "aos";
+import "aos/dist/aos.css"
 import '../ViewEvents/ViewEvents.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { toggleActions } from '../../../Store/Store';
+import 'animate.css';
 const ViewEvents = () => {
   const dispatch = useDispatch();
 
@@ -20,6 +23,9 @@ const ViewEvents = () => {
   const { userInfo } = userLogin;
   const events = useSelector((state) => state.event.events);
   // const token=JSON.parse(localStorage.getItem('userInfo')).token;
+  useEffect(()=>{
+    Aos.init({duration:2000})
+  },[])
   useEffect(() => {
     dispatch(listEvents());
     if (!userInfo) {
@@ -30,7 +36,7 @@ const ViewEvents = () => {
   return (
     <>
       <section className='events'>
-        <h1 id='heading_events'> Browse Events  </h1>
+        <h1 className="animate__animated animate__bounce" id='heading_events'> Browse Events  </h1>
         <br></br>
         <Form style={{ width: "70%", margin: "auto" ,marginTop:"0%" }}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -42,9 +48,9 @@ const ViewEvents = () => {
         </Form>
         {events && events.filter((filteredEvent)=> filteredEvent.title_of_event.toLowerCase().includes(search.toLowerCase()))
         .reverse().map((single) => (
-          <Card id="card" key={single._id}>
+          <Card  data-aos="fade-up"  id="card" key={single._id}>
             <Card.Header id='header'>{single.title_of_event}</Card.Header>
-            <Card.Body>
+            <Card.Body className="animate__animated animate__fadeInUp">
               <Card.Title id='content'>{single.content}</Card.Title>
               <Card.Text id='text'>
                 <b>Date : </b>{single.date_of_event.substring(0, 10)} <br></br>

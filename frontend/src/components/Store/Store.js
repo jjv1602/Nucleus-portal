@@ -87,7 +87,7 @@ const userRegisterSlice = createSlice({
         ADD_MAIL_ID(state,action){
             console.log("inside store ");
             console.log(action.payload);
-            const temp=[{id:Math.random().toString(),name:action.payload.name,eid:action.payload.email}];
+            const temp={id:Math.random().toString(),name:action.payload.name,eid:action.payload.email};
             state.mailid=[temp,...state.mailid];
         },
         Clear_data(state,action){
