@@ -99,7 +99,7 @@ const csvLink = {
         .reverse()
         .map((single) => (
          <Accordion>        
-          <Card data-aos="fade-up" id="card" key={single._id}>
+          <Card  id="card" key={single._id}>
           <Card.Header id='header'>{single.title_of_event}</Card.Header>
             
             <Card.Body>
@@ -153,25 +153,18 @@ const csvLink = {
                     fontFamily: "Trebuchet MS", marginLeft:"30%"
                   }}
                   >RSVP List for Event - <b>{single.title_of_event} </b> </div>
-                  <Accordion flush >
+                 
                   {single.rsvp.map((i, index) => (
                     <>
-                    
-                    <Accordion.Item eventKey={index} style={{margin:"auto",marginBottom:"0",width:"80%"}}>
-                    <Accordion.Header  style={{border:"0.1px solid #000000"}} >
+                
                               {index + 1} - {i}
-                      </Accordion.Header>
-                      <Accordion.Body style={{border:"0.5px solid #000000", fontSize: "2vh",fontFamily: "'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif"}}>    
-                              <b>Email Address : </b>  
-                      </Accordion.Body>    
-                      <br></br>
-                      </Accordion.Item>
+                   
                       
                     </>
 
                   ))
                   }
-                  </Accordion>
+                
                 </div>
 
               }

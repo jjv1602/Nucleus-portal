@@ -48,7 +48,7 @@ const authUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
   
     const user = await User.findOne({ email });
-  
+      // .matchPassword is a function i.e is declared in userModel.js file which would decrypt the password
     if (user && (await user.matchPassword(password))) {
       res.json({
         _id: user._id,
@@ -79,5 +79,8 @@ const getMail = expressAsyncHandler(async (req, res) => {
     }
   });
 
+  // const checkPwd=expressAsyncHandler(async(req,res)=>{
+    
+  // })
 
 module.exports = { registerUser,authUser,getMail };

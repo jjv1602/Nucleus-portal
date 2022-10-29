@@ -1,0 +1,17 @@
+.head{
+    
+    background-color: #e78e8e;
+    width:90%;
+    margin:auto;
+    margin-top: 10%;
+    padding-bottom: 0;
+}
+.sec1{
+    display: flex;
+    padding-top: 8%;
+}
+.left{
+    margin-left: 10%;
+    margin-right: 10%;
+    width:40%;
+}
