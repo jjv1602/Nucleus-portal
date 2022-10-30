@@ -63,7 +63,32 @@
     }
   };
   
-
+  export const updateProfile = (name, email, pic,password,contact )  => async (dispatch) => {
+    try {
+      const userInfo=JSON.parse(localStorage.getItem('userInfo'));
+      console.log(userInfo.token);
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+           Authorization: `Bearer ${userInfo.token}`
+        },
+      };
+      console.log("update");
+      const { data } = await axios.put(
+        "api/users/profile",
+        {name, email, pic,password,contact},
+        config
+      );
+      
+      localStorage.setItem("userInfo", JSON.stringify(data));
+    } catch (error) {
+    
+        dispatch(registerActions.USER_UPDATE_FAIL(error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message),
+      );
+    }
+  };
   
   
   

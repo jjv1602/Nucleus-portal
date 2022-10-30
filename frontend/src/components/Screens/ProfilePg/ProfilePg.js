@@ -1,107 +1,158 @@
 import React, { useState } from 'react'
 import { Alert, Button, Col, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import ErrorMsg from '../../ErrorMsg/ErrorMsg';
+import { updateProfile } from '../../Store/Actions/userActions';
 import Header from '../Header/Header';
 import classes from './ProfilePg.module.css'
 
 const ProfilePg = () => {
-    const [pic, setPic] = useState();
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [picMessage, setPicMessage] = useState();
     const dispatch = useDispatch();
-    // const userLogin = useSelector((state) => state.userLogin);
-
-    // const userUpdate = useSelector((state) => state.userUpdate);
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const [pic, setPic] = useState(userInfo.pic ? userInfo.pic :"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg");
     const [name, setName] = useState(userInfo.name);
     const [email, setEmail] = useState(userInfo.email);
-    const [checkoldpwd,setOldpwd]=useState(false);
-    const checkpwd=()=>{
-        setOldpwd(true);
-    }
+    const [newpwd, setnewpwd] = useState("");
+    const [confpwd, setconfpwd] = useState("");
+    const [pwdmsg,setpwdmsg]=useState();
+    const [picMessage, setPicMessage] = useState();
+    const [cno,setNum]=useState("");
+    const [cnoMsg,setcnoMsg]=useState();
+    const [passwordShown, setPasswordShown] = useState(false);
+    const [passwordShown1, setPasswordShown1] = useState(false);
+    const postDetails = (pics) => {
+        if (pics.type === "image/jpeg" || pics.type === "image/png") {
+            const data = new FormData();
+            data.append("file", pics);
+            data.append("upload_preset", "eventmanage");
+            data.append("cloud_name", "dxxu4powb");
+            console.log(data);
+            fetch("https://api.cloudinary.com/v1_1/dxxu4powb/image/upload", {
+                method: "post",
+                body: data,
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    setPic(data.url.toString());
+                    
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        } else {
+              return setPicMessage("Please Select an Image");
+        }
+    };
     const submitHandler = (e) => {
-        e.preventDefault();
+        
+        if(newpwd!==confpwd){
+            console.log("not going")
+            setcnoMsg("Number is Incorrect");
+                
+        }else{
+            e.preventDefault();
+            dispatch(updateProfile(name,email,pic,newpwd,cno));
+        }
 
-        // dispatch(updateProfile({ name, email, password, pic }));
     };
     return (
         <div className={classes.body}>
             <Header ></Header>
 
             <Alert className={classes.head}>
-                <Alert.Heading> <b style={{ fontSize: "7vh" }}> EDIT PROFILE</b> <br></br>
+                <Alert.Heading> <b style={{}}> EDIT PROFILE</b> <br></br>
                     You can view and update your profile </Alert.Heading>
             </Alert>
 
             <section className={classes.sec1}  >
                 <section className={classes.left}>
 
-                    <Form className={classes.form} >
-                        <Form.Group controlId="email">
-                            <Form.Label>Update Name </Form.Label>
+                    <Form onSubmit={submitHandler} className={classes.form} >
+                        <Form.Group >
+                            <Form.Label className={classes.form_label}>Update Name </Form.Label>
                             <Form.Control
                                 placeholder="Update Name"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                             ></Form.Control>
                         </Form.Group>
-                        <Form.Group controlId="email">
-                            <Form.Label>Email Address</Form.Label>
+                        <br></br>
+                        <Form.Group  >
+                            <Form.Label className={classes.form_label}>Email Address</Form.Label>
                             <Form.Control
                                 type="email"
-                                placeholder="Enter Email"
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                disabled
                             ></Form.Control>
+
                         </Form.Group>
                         <br></br>
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label><b>To Change Password </b> <br></br> Enter Old Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
+                        {cnoMsg && <ErrorMsg msg={cnoMsg}/>}
+                        <Form.Group >
+                            <Form.Label className={classes.form_label}>Update Contact Number </Form.Label>
+                            <div style={{ position: "relative", height: "40px", border: "solid #242442 2px", display: "flex" }}>
+                                <div id={classes["numdiv"]}> +91 </div>
+                            <Form.Control
+                                placeholder="Update Number"
+                                value={cno}
+                                onChange={(e) => setNum(e.target.value)}
+                            ></Form.Control>
+                             </div>
                         </Form.Group>
-
-                        <Button variant="primary" onClick={()=>{checkpwd()}} style={{marginBottom:"5%"}}>Check Old Password </Button>
                         <br></br>
-                        {checkoldpwd &&
-                        <>
-                         <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label><b>Enter New Password</b></Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label><b>Confirm Password </b> </Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
+                        <Form.Group className="mb-3"  >
+                            <Form.Label className={classes.form_label}><b>Enter New Password</b></Form.Label>
+                            <div style={{ position: "relative", height: "40px", border: "solid #242442 2px", display: "flex" }}>
+                                <Form.Control
+                                    type={passwordShown ? "text" : "password"}
+                                    value={newpwd}
+                                    placeholder="Password"
+                                    onChange={(e) => setnewpwd(e.target.value)}
+                                    style={{ border: "0px" }}
+                                >
+                                </Form.Control>
+                                <i class="fa-regular fa-eye fa-2x" onClick={() => setPasswordShown(!passwordShown)} style={{ width: "20%", textAlign: "center" }}></i>
+                            </div>
                         </Form.Group>
 
-                        </>
-                        }
+                        <Form.Group className="mb-3" >
+                            <Form.Label className={classes.form_label}><b>Confirm Password</b></Form.Label>
+                            <div style={{ position: "relative", height: "40px", border: "solid #242442 2px", display: "flex" }}>
+                                <Form.Control
+                                    type={passwordShown1 ? "text" : "password"}
+                                    value={confpwd}
+                                    placeholder="Password"
+                                    onChange={(e) => setconfpwd(e.target.value)}
+                                    style={{ border: "0px" }}
+                                >
+                                </Form.Control>
+                                <i class="fa-regular fa-eye fa-2x" onClick={() => setPasswordShown1(!passwordShown1)} style={{ width: "20%", textAlign: "center" }}></i>
+                            </div>
+                        </Form.Group>
+                        {picMessage && <ErrorMsg msg={picMessage}/>}
+                        <Form.Group controlId="pic" >
+                            <Form.Label className={classes.form_label}>Change Profile Picture</Form.Label>
+                            <Form.Control
+                                onChange={(e) => postDetails(e.target.files[0])}
+                                id="custom-file"
+                                type="file"
+                                accept=".png, .jpg, .jpeg"
+                                label="Upload Profile Picture"
+                                custom
+                            />
+                        </Form.Group>
+                        <br></br>
                         <Button variant="primary" type="submit">
                             Update
                         </Button>
                     </Form>
                 </section>
-                <section className={classes.right}>
-                    <Form>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" />
-                            <Form.Text className="text-muted">
-                                We'll never share your email with anyone else.
-                            </Form.Text>
-                        </Form.Group>
-
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                            <Form.Check type="checkbox" label="Check me out" />
-                        </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Submit
-                        </Button>
-                    </Form>
+                <section>
+                    <div className={classes.right} >
+                    <img src={pic} alt={name} className={classes.profilePic} />
+                    
+                    </div>
                 </section>
             </section>
         </div>

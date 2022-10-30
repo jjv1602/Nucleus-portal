@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap');
-@media (min-width:1200px){
+@media (min-width:990px){
     #navt{
         background-color:#201c34;
         position:absolute;
@@ -42,7 +42,7 @@
     }
 }
 
-@media (max-width:1200px){
+@media (max-width:990px) {
     #navt{
         background-color:#201c34;
     }

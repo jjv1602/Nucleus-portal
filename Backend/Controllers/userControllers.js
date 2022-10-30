@@ -79,8 +79,33 @@ const getMail = expressAsyncHandler(async (req, res) => {
     }
   });
 
-  // const checkPwd=expressAsyncHandler(async(req,res)=>{
+  const updateUserProfile=expressAsyncHandler(async(req,res)=>{
+    const { name, email, pic,password,contact } = req.body;
+    const user = await User.findOne({ email });
     
-  // })
+    if (user) {
+      user.name = name || user.name;
+      user.email = email || user.email;
+      user.pic = pic || user.pic;
+      user.contact=contact ||user.contact;
+      if (password) {
+        user.password = password;
+      }
+  
+      const updatedUser = await user.save();
+  
+      res.json({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email:  updatedUser.email,
+        pic: updatedUser.pic,
+        contact:updatedUser.contact,
+        token: generateToken(updatedUser._id),
+      });
+    } else {
+      res.status(404);
+      throw new Error("User Not Found");
+    }
+  })
 
-module.exports = { registerUser,authUser,getMail };
+module.exports = { registerUser,authUser,getMail,updateUserProfile };

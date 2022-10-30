@@ -153,18 +153,14 @@ const csvLink = {
                     fontFamily: "Trebuchet MS", marginLeft:"30%"
                   }}
                   >RSVP List for Event - <b>{single.title_of_event} </b> </div>
-                 
+
                   {single.rsvp.map((i, index) => (
                     <>
-                
                               {index + 1} - {i}
-                   
-                      
                     </>
-
                   ))
                   }
-                
+
                 </div>
 
               }
