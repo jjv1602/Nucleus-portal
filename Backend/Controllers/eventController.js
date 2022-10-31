@@ -99,12 +99,13 @@ const deleteEvent = expressAsyncHandler(async (req, res) => {
 const rsvp = expressAsyncHandler(async (req, res) => {
   const { user_id } = req.body;
   const user = await User.findOne({ user_id });
+  var date = new Date();
   // here user_id is coming from authMiddleware see line 20
   // const event = new Event({title_of_event, content, time_of_event ,date_of_event,user:user_id });  
   const event = await Event.findById(req.params.id);  //params.id means take id from url
   // if username not saved then only save the username
-  const data={"user_id":user_id,"name":user.name,"email":user.email,"contact":user.contact,"pic":user.pic}
-  // console.log(data);
+  const data={"user_id":user_id,"name":user.name,"email":user.email,"contact":user.contact,"pic":user.pic,"date_time_of_rsvp":date}
+  console.log(data);
   if (event.rsvp.indexOf({"user_id":user_id}) == -1) {
     event.rsvp.push(data);
     const rsvp_event = await event.save();

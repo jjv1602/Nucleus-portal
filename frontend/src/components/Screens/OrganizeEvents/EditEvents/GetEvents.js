@@ -48,7 +48,10 @@ const headers = [
     label:"Name",key:"name"
   },
   {
-    label:"Age",key:"eid"
+    label:"Email",key:"eid"
+  },
+  {
+    label:"Contact",key:"cont"
   },
  
 ]

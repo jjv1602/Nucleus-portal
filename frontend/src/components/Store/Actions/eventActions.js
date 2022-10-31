@@ -155,6 +155,7 @@ export const cleararr=()=>(dispatch)=>{
 export const rsvp_add_name=(id)=>async(dispatch)=>{
   try {
     const userInfo=JSON.parse(localStorage.getItem('userInfo'));
+    
     const token=userInfo.token;
     const config = {
       headers: {
