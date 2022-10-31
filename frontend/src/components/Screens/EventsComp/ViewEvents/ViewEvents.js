@@ -21,9 +21,9 @@ const ViewEvents = () => {
   const { userInfo } = userLogin;
   const events = useSelector((state) => state.event.events);
   // const token=JSON.parse(localStorage.getItem('userInfo')).token;
-  useEffect(()=>{
-    Aos.init({duration:2000})
-  },[])
+  // useEffect(()=>{
+  //   Aos.init({duration:2000})
+  // },[])
   useEffect(() => {
     dispatch(listEvents());
     if (!userInfo) {
@@ -46,7 +46,8 @@ const ViewEvents = () => {
         </Form>
         {events && events.filter((filteredEvent)=> filteredEvent.title_of_event.toLowerCase().includes(search.toLowerCase()))
         .reverse().map((single) => (
-          <Card  data-aos="fade-up"  id="card" key={single._id}>
+          // <Card  data-aos="fade-up"  id="card" key={single._id}>
+          <Card  id="card" key={single._id}>
             <Card.Header id='header'>{single.title_of_event}</Card.Header>
             <Card.Body className="animate__animated animate__fadeInUp">
               <Card.Title id='content'>{single.content}</Card.Title>
@@ -55,7 +56,8 @@ const ViewEvents = () => {
                 <b>Time : </b>{single.time_of_event}
 
               </Card.Text>
-              {single.rsvp.includes(JSON.parse(localStorage.getItem('userInfo')).name) &&
+             
+              {single.rsvp.some(mem=>mem.user_id===JSON.parse(localStorage.getItem('userInfo'))._id) &&
                 <Button variant="success" onClick={() => {
                   dispatch(rsvp_remove_name(single._id));
                 }}
@@ -64,7 +66,7 @@ const ViewEvents = () => {
               }
 
               {
-                single.seats_of_event - single.rsvp.length !== 0 && !single.toggle && !single.rsvp.includes(JSON.parse(localStorage.getItem('userInfo')).name) &&
+                single.seats_of_event - single.rsvp.length !== 0 && !single.toggle && !single.rsvp.some(mem=>mem.user_id===JSON.parse(localStorage.getItem('userInfo'))._id) &&
                 <Button onClick={() => {
                   dispatch(rsvp_add_name(single._id));
                 }}> RSVP</Button>
@@ -72,7 +74,6 @@ const ViewEvents = () => {
               <Badge pill bg="dark" style={{ marginLeft: "10%", height: "35px", padding: "10px", fontSize: "15px" }}>{single.seats_of_event - single.rsvp.length}  Seats Left </Badge>
             </Card.Body>
           </Card>
-
         ))}
         <br></br>
         <br></br>

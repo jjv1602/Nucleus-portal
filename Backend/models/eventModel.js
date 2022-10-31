@@ -30,7 +30,13 @@ const eventSchema = mongoose.Schema(
         },
         rsvp:{
             type:Array,
+        
         },
+        // rsvp:{
+        //   type:mongoose.Schema.Types.ObjectId,
+        //     required:true,
+        //     ref:"User", 
+        // },
         toggle_rsvp_list:{
             type:Boolean,
             default:false,

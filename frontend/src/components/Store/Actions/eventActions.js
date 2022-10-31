@@ -162,9 +162,10 @@ export const rsvp_add_name=(id)=>async(dispatch)=>{
       },
     };
     
-    const username=JSON.parse(localStorage.getItem('userInfo')).name;
+    const user_id=JSON.parse(localStorage.getItem('userInfo'))._id;
+    console.log(user_id);
     // const email=JSON.parse(localStorage.getItem('userInfo')).email;
-    const { data } = await axios.put(`/api/events/${id}/rsvp`,{username},config);
+    const { data } = await axios.put(`/api/events/${id}/rsvp`,{user_id},config);
     // const { data } = await axios.put(`/api/events/${id}/rsvp`,{username,email},config);
     console.log("rsvp");
     console.log(data);
@@ -190,12 +191,10 @@ export const rsvp_remove_name=(id)=>async(dispatch)=>{
       },
     };
     
-    const username=JSON.parse(localStorage.getItem('userInfo')).name;
-    const { data } = await axios.put(`/api/events/${id}/remove_rsvp`,{username},config);
-    // window.location.reload();
-    
-    
+    const user_id=JSON.parse(localStorage.getItem('userInfo'))._id;
+    const { data } = await axios.put(`/api/events/${id}/remove_rsvp`,{user_id},config);
   
+    
   } catch (error) {
     console.log("error");
     const message =
