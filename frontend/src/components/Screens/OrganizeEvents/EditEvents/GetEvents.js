@@ -147,7 +147,7 @@ var i=1;
 
                       </div>
                         
-                        <RsvpTable list={single.rsvp}></RsvpTable>
+                        <RsvpTable list={single.rsvp} id_of_event={single._id}></RsvpTable>
                       
                       </>
                   }

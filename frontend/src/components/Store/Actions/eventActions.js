@@ -205,3 +205,24 @@ export const rsvp_remove_name=(id)=>async(dispatch)=>{
         : error.message;
   }
 }
+
+export const rsvp_remove_name_from_table=(event_id,removelist)=>async(dispatch)=>{
+  try {
+    const userInfo=JSON.parse(localStorage.getItem('userInfo'));
+    const token=userInfo.token;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,   //only Bearer token is accepted so we send token
+      },
+    };
+    
+    const {data}= await axios.put(`/api/events/${event_id}/remove_rsvp_list_event`,{event_id,removelist},config);
+  
+  } catch (error) {
+    console.log("error");
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+  }
+}

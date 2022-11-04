@@ -114,12 +114,9 @@ const rsvp = expressAsyncHandler(async (req, res) => {
     
   }
 
-}
-);
+});
 const remove_rsvp = expressAsyncHandler(async (req, res) => {
   const { user_id } = req.body;
-  // here user_id is coming from authMiddleware see line 20
-  // const event = new Event({title_of_event, content, time_of_event ,date_of_event,user:user_id });  
   const event = await Event.findById(req.params.id);
   //params.id means take id from url
   if (event.rsvp.findIndex(a=>a.user_id===user_id) != -1) {
@@ -132,8 +129,22 @@ const remove_rsvp = expressAsyncHandler(async (req, res) => {
   else{
     res.json({ message: "Username already removed" });
   }
+});
+const remove_rsvp_from_table = expressAsyncHandler(async (req, res) => {
+  const { event_id,removelist } = req.body;
+  const event = await Event.findById(event_id);
+  //params.id means take id from url
+  for(let i=0;i<removelist.length;i++){
+    if (event.rsvp.findIndex(a=>a.user_id===user_id) != -1) {
 
-}
-);
-
-module.exports = { getEvents, createEvent, getEventById, updateEvent, deleteEvent, getEventscreatedbyparticularperson, rsvp, remove_rsvp };
+      event.rsvp.splice(event.rsvp.findIndex(a=>a.user_id===user_id),1);
+      const rsvp_event = await event.save();
+      res.json(rsvp_event);
+    }
+    else{
+      res.json({ message: "Username already removed" });
+    }
+  }
+  
+});
+module.exports = { getEvents, createEvent, getEventById, updateEvent, deleteEvent, getEventscreatedbyparticularperson, rsvp, remove_rsvp ,remove_rsvp_from_table};
