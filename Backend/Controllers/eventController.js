@@ -6,7 +6,7 @@ const getEvents = expressAsyncHandler(async (req, res) => {
 
   // this would display all the notes irrespective of user  
   const events = await Event.find();
-  console.log
+  
   // to find display event created by a particular mail 
   // const Event = await Event.find({ user: req.user._id });
   res.json(events);
@@ -56,9 +56,7 @@ const updateEvent = expressAsyncHandler(async (req, res) => {
   const { title_of_event, content, time_of_event, date_of_event,seats_of_event } = req.body;
 
   const event = await Event.findById(req.params.id);
-  // const us=await User.findById(event.user);
-  // console.log(us.email);
-  // console.log(us.name);
+  
   // checking whether user who made the event is the same user who is updating
   if (event.user.toString() !== user_id.toString()) {
     res.status(401);
@@ -98,14 +96,14 @@ const deleteEvent = expressAsyncHandler(async (req, res) => {
 
 const rsvp = expressAsyncHandler(async (req, res) => {
   const { user_id } = req.body;
-  const user = await User.findOne({ user_id });
+  const user = await User.findById( user_id);
   var date = new Date();
   // here user_id is coming from authMiddleware see line 20
   // const event = new Event({title_of_event, content, time_of_event ,date_of_event,user:user_id });  
   const event = await Event.findById(req.params.id);  //params.id means take id from url
   // if username not saved then only save the username
-  const data={"user_id":user_id,"name":user.name,"email":user.email,"contact":user.contact,"pic":user.pic,"date_time_of_rsvp":date}
-  console.log(data);
+  const data={"user_id":user_id,"key":user_id,"name":user.name,"email":user.email,"contact":user.contact,"pic":user.pic,"date_time_of_rsvp":date}
+
   if (event.rsvp.indexOf({"user_id":user_id}) == -1) {
     event.rsvp.push(data);
     const rsvp_event = await event.save();
@@ -125,9 +123,9 @@ const remove_rsvp = expressAsyncHandler(async (req, res) => {
   const event = await Event.findById(req.params.id);
   //params.id means take id from url
   if (event.rsvp.findIndex(a=>a.user_id===user_id) != -1) {
-    console.log("help:");
+
     event.rsvp.splice(event.rsvp.findIndex(a=>a.user_id===user_id),1);
-    console.log("el");
+   
     const rsvp_event = await event.save();
     res.json(rsvp_event);
   }

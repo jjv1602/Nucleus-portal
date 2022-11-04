@@ -1,39 +1,41 @@
-import React from 'react'
-import { Table } from 'react-bootstrap'
+import React, { useState } from 'react'
 import classes from '../RsvpTable/RsvpTable.module.css'
+import { Table } from 'antd';
 const RsvpTable = (props) => {
-    return (
-        <>
-            <Table striped bordered hover>
-                <thead>
-                    <tr className={classes.tr}>
-                        <th>#</th>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Contact</th>
-                        <th>Date and Time of Rsvp</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {props.list.map((i,index) => {
+  const [check, setCheck] = useState(false);
+ 
+ 
+  const columns = [
+    
+    {
+      title: 'Name',
+      dataIndex: 'name',
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+    },
+    {
+      title: 'Contact',
+      dataIndex: 'contact',
+    },
+    {
+      title: 'Date and Time of RSVP',
+      dataIndex: 'date_time_of_rsvp',
+    },
+  ];
+  return (
+    <>
+      <Table columns={columns} dataSource={props.list} rowSelection={{
+        type: 'checkbox',
+        onSelect: (record) => {
+          console.log({ record })
+        }
+      }}
+      ></Table>
 
-                        return (
-                        <tr>
-                            <td><input type="checkbox" name={i._id} /></td>
-                            <td>{index}</td>
-                            <td>{i.name}</td>
-                            <td>{i.email}</td>
-                            <td>{i.contact}</td>
-                            <td>{i.date}</td>
-                        </tr>
-                        )
-                    })
-                    }
-                </tbody>
-            </Table >
-        </>
-    )
+    </>
+  )
 }
 
 export default RsvpTable

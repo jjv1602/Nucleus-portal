@@ -164,6 +164,7 @@ export const rsvp_add_name=(id)=>async(dispatch)=>{
     };
     
     const user_id=JSON.parse(localStorage.getItem('userInfo'))._id;
+    console.log("user_id from frontend");
     console.log(user_id);
     // const email=JSON.parse(localStorage.getItem('userInfo')).email;
     const { data } = await axios.put(`/api/events/${id}/rsvp`,{user_id},config);

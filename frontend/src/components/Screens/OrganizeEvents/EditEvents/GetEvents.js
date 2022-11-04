@@ -24,10 +24,10 @@ const GetEvents = () => {
   const [down, setDown] = useState(new Map());
   const [datafetched, setdatafetched] = useState(false);
   const [show, setShow] = useState(new Map());
-  const [btntext, setBtntext] = useState("Click to Download RSVP Data");
   const { userInfo } = userLogin;
   const [exceldata, setExcelData] = useState([]);
-
+  var newArr =[];
+var i=1;
   useEffect(() => {
     Aos.init({ duration: 2000 })
   }, [])
@@ -87,6 +87,7 @@ const GetEvents = () => {
           .filter((filteredEvent) => filteredEvent.title_of_event.toLowerCase().includes(search.toLowerCase()))
           .reverse()
           .map((single) => (
+            <>
             <Accordion>
               <Card id={classes["card"]} key={single._id}>
                 <Card.Header id={classes["header"]}>{single.title_of_event}</Card.Header>
@@ -104,7 +105,7 @@ const GetEvents = () => {
                   <Button variant="primary" style={{ margin: "1%" }} active onClick={() => deleteHandler(single._id)}>
                     Delete
                   </Button>
-                  <Button onClick={() => {
+                  <Button variant="primary" onClick={() => {
 
                     setExcelData(single.rsvp);
                     { console.log(single.rsvp) }
@@ -118,7 +119,9 @@ const GetEvents = () => {
                       setShow(new Map(down.set(single._id, true)));
                     }
                   }}
-                  > <CSVLink {...csvLink}>Click to download data .. </CSVLink> </Button>
+                  > <CSVLink {...csvLink} style={{color:"#ffffff"}}>
+                  Click to download data..
+                </CSVLink> </Button>
 
                   <Button variant="success" style={{ margin: "1%" }} onClick={() => {
                     if (flag.get(single._id)) {
@@ -140,10 +143,10 @@ const GetEvents = () => {
                           fontFamily: "Trebuchet MS", marginLeft: "30%"
                         }}
                         >RSVP List for Event - <b>{single.title_of_event} </b> </div>
-                        {console.log(single.rsvp)}
+                        {/* {console.log(single.rsvp)} */}
 
                       </div>
-                    
+                        
                         <RsvpTable list={single.rsvp}></RsvpTable>
                       
                       </>
@@ -153,6 +156,10 @@ const GetEvents = () => {
             </Card>
 
             </Accordion>
+            <br></br>
+            <br></br>
+
+            </>
           ))}
       <br></br>
       <br></br>

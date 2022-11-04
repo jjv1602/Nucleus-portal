@@ -1,3 +1,23 @@
-.tr{
-    
+.table{
+    border-collapse:separate;
+    border-spacing: 0 1em;
+    background-color: rgb(250, 248, 248);
+    width:100%;
+    height: 100%;;
+}
+.thead{
+    background-color: rgb(112, 121, 248);
+    height:8vh;
+}
+.tr {
+   background-color: #ffffff;
+   /* border: 2px solid black; */
+   height:8vh;
+   
+   
+}
+.checktr{
+    height:8vh;
+    background-color: #a72626;
+    /* border: 2px solid greenyellow; */
 }

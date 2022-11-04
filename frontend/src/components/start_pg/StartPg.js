@@ -12,16 +12,6 @@ import { useNavigate } from 'react-router-dom';
 const StartPg = () => {
   const want_to_login=useSelector(state=>state.toggle.want_to_login);
   
-  
-  // const userLogin = useSelector((state) => state.login.userLogin);
-  // const { loading, error, userInfo } = userLogin;
-  // useEffect(() => {
-  //   const userInfo = localStorage.getItem("userInfo");
-  //   if (userInfo) {
-  //       history("/landingscreen");
-  //   }
-  // }, [history,userInfo]);
-  
   return (
     <>
         <section className='sec1'>
