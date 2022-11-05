@@ -30,6 +30,7 @@ const OrganizeEvents = () => {
           <section id={classes.tit_sec_title}>CREATE <br></br>UPDATE & DELETE EVENTS </section>
         </section>
       </section>
+      <section className={classes.sec3}></section>
       <section className={classes.sec2}>
         <div id={classes.sec2_tit}>Your Events  : </div>
         <div id={classes.sec2_sub_tit}>You can edit , update and delete events only which are created by you </div>
