@@ -28,7 +28,7 @@ export const listEvents = () => async (dispatch) => {
 
 
 // imp variable names declared in backend event model and event controller should be same as declared here 
-export const createEventAction=(title_of_event,content,time_of_event,date_of_event,seats_of_event)=> async (dispatch) => {
+export const createEventAction=(title_of_event,content,time_of_event,date_of_event,seats_of_event,poster)=> async (dispatch) => {
   try {
     dispatch(eventActions.EVENT_CREATE_REQUEST());
 
@@ -41,7 +41,7 @@ export const createEventAction=(title_of_event,content,time_of_event,date_of_eve
       },
     };
   
-    const { data } = await axios.post(`/api/events/create`,{title_of_event,content,time_of_event,date_of_event,seats_of_event},config);
+    const { data } = await axios.post(`/api/events/create`,{title_of_event,content,time_of_event,date_of_event,seats_of_event,poster},config);
     dispatch(eventActions.EVENT_CREATE_SUCCESS(data));
     
   } catch (error) {

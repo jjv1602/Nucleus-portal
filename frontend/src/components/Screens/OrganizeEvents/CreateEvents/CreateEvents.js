@@ -53,7 +53,7 @@ const CreateEvents = () => {
     }
     else {
       setdateError(false);
-      dispatch(createEventAction(title_of_event, content, time_of_event, date_of_event, seats_of_event));
+      dispatch(createEventAction(title_of_event, content, time_of_event, date_of_event, seats_of_event,poster));
       resetHandler();   //to clear data after submit is clicked
 
     }
@@ -65,6 +65,7 @@ const CreateEvents = () => {
     setSeats("");
     setTime("");
     setDate("");
+    setPoster("https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg");
   };
   return (
     <>

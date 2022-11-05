@@ -21,7 +21,7 @@ const getEventscreatedbyparticularperson = expressAsyncHandler(async (req, res) 
 });
 
 const createEvent = expressAsyncHandler(async (req, res) => {
-  const { title_of_event, content, time_of_event, date_of_event,seats_of_event } = req.body;
+  const { title_of_event, content, time_of_event, date_of_event,seats_of_event,poster } = req.body;
 
   if (!title_of_event || !content || !time_of_event || !date_of_event) {
     res.status(400);
@@ -29,7 +29,7 @@ const createEvent = expressAsyncHandler(async (req, res) => {
     return;
   } else {
     // here user_id is coming from authMiddleware see line 20
-    const event = new Event({ title_of_event, content, time_of_event, date_of_event,seats_of_event,user: user_id });
+    const event = new Event({ title_of_event, content, time_of_event, date_of_event,seats_of_event,poster,user: user_id });
 
     const createdEvent = await event.save(); // after saving it is going to send a note which we are saving in createdNote and in next line we storing that event inside json
 
