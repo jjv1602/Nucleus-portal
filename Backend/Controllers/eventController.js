@@ -53,7 +53,7 @@ const getEventById = expressAsyncHandler(async (req, res) => {
 // Put request Event
 const updateEvent = expressAsyncHandler(async (req, res) => {
 
-  const { title_of_event, content, time_of_event, date_of_event,seats_of_event } = req.body;
+  const { title_of_event, content, time_of_event, date_of_event,seats_of_event,poster } = req.body;
 
   const event = await Event.findById(req.params.id);
   
@@ -69,7 +69,7 @@ const updateEvent = expressAsyncHandler(async (req, res) => {
     event.time_of_event = time_of_event;
     event.date_of_event = date_of_event;
     event.seats_of_event=seats_of_event;
-
+    event.poster=poster;
     const updatedEvent = await event.save();
     res.json(updatedEvent);
   } else {

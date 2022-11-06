@@ -114,14 +114,14 @@ const eventSlice = createSlice({
     },
     reducers: {
         EVENT_LIST_REQUEST(state, action) {
-            state.userEvent.loading = true;
+            // state.userEvent.loading = true;
         },
         EVENT_LIST_SUCCESS(state, action) {
-            state.userEvent.loading = false;
+            // state.userEvent.loading = false;
             state.events = action.payload;  
         },
         USER_CREATED_Events(state,action){
-            state.userEvent.loading = false;
+            // state.userEvent.loading = false;
             state.userCreatedEvents = action.payload;
         },
         EVENT_LIST_FAIL(state, action) {

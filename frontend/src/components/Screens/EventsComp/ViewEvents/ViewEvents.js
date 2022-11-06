@@ -11,9 +11,17 @@ import '../ViewEvents/ViewEvents.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { toggleActions } from '../../../Store/Store';
 import 'animate.css';
+const getposter=(arg)=>{
+  console.log(arg);
+  return(
+    <div style={{height:"400px",width:"400px"}}>
+      <img src={arg}></img>
+    </div>
+  )
+}
 const ViewEvents = () => {
   const dispatch = useDispatch();
-
+var l;
   const navigate = useNavigate();
   const eventList = useSelector((state) => state.event.userEvent);
   const [search, setSearch] = useState("");
@@ -36,11 +44,12 @@ const ViewEvents = () => {
       <section className='events'>
         <h1 className="animate__animated animate__bounce" id='heading_events'> Browse Events  </h1>
         <br></br>
-        <Form classname="search-bar-parent"style={{ width: "60%", margin: "auto" ,marginTop:"0%" ,borderRadius: "70px"}}>
-          <Form.Group className="search-bar-grp" controlId="formBasicEmail" style={{display:"flex",position:"relative", borderRadius: "70px"}}>
-            <Form.Control className="search-bar" type="email" placeholder="Search Event .....  " style={{height:"7vh"}} onChange={(e) => setSearch(e.target.value)} />
-            <button className="search-bar-logo" style={{position:"absolute",right:"0",height:"100%",width:"10%"}}>
-            <i class="fa-solid fa-magnifying-glass 2x"></i>
+        {/* Search Bar */}
+        <Form classname="search-bar-parent" style={{ width: "60%", margin: "auto", marginTop: "0%", borderRadius: "70px" }}>
+          <Form.Group className="search-bar-grp" controlId="formBasicEmail" style={{ display: "flex", position: "relative", borderRadius: "70px" }}>
+            <Form.Control className="search-bar" type="email" placeholder="Search Event .....  " style={{ height: "7vh" }} onChange={(e) => setSearch(e.target.value)} />
+            <button className="search-bar-logo" style={{ position: "absolute", right: "0", height: "100%", width: "10%" }}>
+              <i class="fa-solid fa-magnifying-glass 2x"></i>
             </button>
           </Form.Group>
         </Form>
@@ -52,14 +61,15 @@ const ViewEvents = () => {
             // <Card  data-aos="fade-up"  id="card" key={single._id}>
             <Card id="card" key={single._id}>
               <Card.Header id='header'>{single.title_of_event}</Card.Header>
-              <Card.Body className="animate__animated animate__fadeInUp">
+              <Card.Body className="card_body">
+                <section className='left'>
                 <Card.Title id='content'>{single.content}</Card.Title>
                 <Card.Text id='text'>
                   <b>Date : </b>{single.date_of_event.substring(0, 10)} <br></br>
                   <b>Time : </b>{single.time_of_event}
-
+                  <Badge pill bg="dark" style={{ marginLeft: "10%", height: "35px", padding: "10px", fontSize: "15px" }}>{single.seats_of_event - single.rsvp.length}  Seats Left </Badge>
                 </Card.Text>
-
+                <br></br>
                 {single.rsvp.some(mem => mem.user_id === JSON.parse(localStorage.getItem('userInfo'))._id) &&
                   <Button variant="success" onClick={() => {
                     dispatch(rsvp_remove_name(single._id));
@@ -74,13 +84,17 @@ const ViewEvents = () => {
                     dispatch(rsvp_add_name(single._id));
                   }}> RSVP</Button>
                 }
-                <Badge pill bg="dark" style={{ marginLeft: "10%", height: "35px", padding: "10px", fontSize: "15px" }}>{single.seats_of_event - single.rsvp.length}  Seats Left </Badge>
+              </section>
+              <section className='right'>
+                <img src={single.poster}  className="posterPic" />
+              </section>
               </Card.Body>
             </Card>
-          ))}
+          ))
+        }
         <br></br>
         <br></br>
-      </section>
+      </section >
     </>
   )
 }

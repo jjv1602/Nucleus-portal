@@ -103,7 +103,7 @@ export const deleteEvent = (id) => async (dispatch) => {
   }
 };
 
-export const updateEvent = (id,title_of_event,content,time_of_event,date_of_event,seats_of_event) => async (dispatch) => {
+export const updateEvent = (id,title_of_event,content,time_of_event,date_of_event,seats_of_event,poster) => async (dispatch) => {
   try {
     dispatch(eventActions.EVENT_UPDATE_REQUEST());
     const userInfo=JSON.parse(localStorage.getItem('userInfo'));
@@ -115,7 +115,7 @@ export const updateEvent = (id,title_of_event,content,time_of_event,date_of_even
       },
     };
   
-    const { data } = await axios.put(`/api/events/${id}`,{title_of_event,content,time_of_event,date_of_event,seats_of_event},config);
+    const { data } = await axios.put(`/api/events/${id}`,{title_of_event,content,time_of_event,date_of_event,seats_of_event,poster},config);
     dispatch(eventActions.EVENT_UPDATE_SUCCESS(data));
   } catch (error) {
     console.log("error");

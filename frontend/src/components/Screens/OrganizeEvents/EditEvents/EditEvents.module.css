@@ -1,0 +1,19 @@
+.card_body{
+    display: flex;
+}
+
+.left{
+    width: 60%;
+}
+.right{
+    margin-left: 8%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:80vh;
+}
+.poster{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}

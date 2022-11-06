@@ -1,18 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Card, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from "react-redux";
 import ErrorMsg from "../../../ErrorMsg/ErrorMsg"
-import { createEventAction } from '../../../Store/Actions/eventActions';
+import SuccessMsg from '../../../ErrorMsg/SuccessMsg';
+import Loading from '../../../Loading/Loading';
+import { createEventAction, listEvents, listuserCreatedEvents } from '../../../Store/Actions/eventActions';
 import classes from './CreateEvents.module.css';
 const CreateEvents = () => {
+  const events = useSelector((state) => state.event.events);
+  useEffect(() => {
+    dispatch(listEvents());
+  }, [events]);
+
   const [title_of_event, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [time_of_event, setTime] = useState("");
   const [date_of_event, setDate] = useState("");
   const [seats_of_event, setSeats] = useState("");
   const [dateError, setdateError] = useState(false);
-  const success = useSelector((state) => state.event.success);
+  const success = useSelector((state) => state.event.userEvent.success);
+  const loading=useSelector((state)=>state.event.userEvent.loading);
   const dispatch = useDispatch();
+  useEffect(() => { 
+    dispatch(listuserCreatedEvents());
+  }, [loading,success]);
   const [postermsg,setPostermsg]=useState();
   const [poster, setPoster] = useState("https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg");
   const posterDetails = (pics) => {
@@ -54,6 +65,7 @@ const CreateEvents = () => {
     else {
       setdateError(false);
       dispatch(createEventAction(title_of_event, content, time_of_event, date_of_event, seats_of_event,poster));
+
       resetHandler();   //to clear data after submit is clicked
 
     }
@@ -69,13 +81,16 @@ const CreateEvents = () => {
   };
   return (
     <>
+   
       <section style={{ margin: "25px", paddingBottom: "25px" }}>
 
         {/* If user enters event date which has already passed  */}
 
         <Card style={{ position: "relative" }}>
+        {success && <SuccessMsg msg="Event Created Successfully"></SuccessMsg>}
           <Card.Header>Create a new Event</Card.Header>
           <Card.Body style={{ display: "flex", position: "relative" }}>
+            
             <section className={classes.left}>
               <Form onSubmit={submitHandler}>
                 <Form.Group controlId="title">
@@ -152,7 +167,7 @@ const CreateEvents = () => {
 
                 </Form.Group>
                 <br></br>
-                {/* {loading && <Loading size={50} />} */}
+                {loading && <Loading size={50} />}
                 <Button type="submit" variant="primary" onClick={submitHandler}>
                   Create Event
                 </Button>
@@ -163,6 +178,7 @@ const CreateEvents = () => {
               </Form>
             </section>
             <section className={classes.right} >
+
               <div className={classes.img_title}>Poster of the Event</div>
               <br></br>
               <img src={poster} className={classes.posterPic} />
@@ -170,6 +186,7 @@ const CreateEvents = () => {
           </Card.Body>
 
           <Card.Footer className="text-muted">
+          {success && <SuccessMsg msg="Event Created Successfully"></SuccessMsg>}
             Creating on - {new Date().toLocaleDateString()}
           </Card.Footer>
         </Card>

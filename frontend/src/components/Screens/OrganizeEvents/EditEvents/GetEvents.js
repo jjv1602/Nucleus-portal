@@ -89,74 +89,81 @@ const GetEvents = () => {
           .reverse()
           .map((single) => (
             <>
-              <Accordion>
-                <Card id={classes["card"]} key={single._id}>
-                  <Card.Header id={classes["header"]}>{single.title_of_event}</Card.Header>
+              <Card id={classes["card"]} key={single._id}>
+                <Card.Header id={classes["header"]}>{single.title_of_event}</Card.Header>
 
-                  <Card.Body>
-                    <Card.Title id={classes["content"]}>{single.content}</Card.Title>
-                    <Card.Text id={classes["text"]}>
-                      <b>Date : </b>{single.date_of_event.substring(0, 10)} <br></br>
-                      <b>Time : </b>{single.time_of_event}
-                      <Badge pill bg="dark" style={{ marginLeft: "10%", height: "35px", padding: "10px", fontSize: "15px" }}>{single.seats_of_event - single.rsvp.length}  Seats Left </Badge>
-                    </Card.Text>
-                    <Button variant="primary" style={{ margin: "1%" }} active href={`/events/${single._id}`}>
-                      EDIT
-                    </Button>
-                    <Button variant="primary" style={{ margin: "1%" }} active onClick={() => deleteHandler(single._id)}>
-                      Delete
-                    </Button>
-                    <Button variant="primary" onClick={() => {
+                <Card.Body className={classes.card_body}>
+                  <section className={classes.main}>
+                    <section className={classes.left}>
+                  <Card.Title id={classes["content"]}>{single.content}</Card.Title>
+                  <Card.Text id={classes["text"]}>
+                    <b>Date : </b>{single.date_of_event.substring(0, 10)} <br></br>
+                    <b>Time : </b>{single.time_of_event}
+                    <Badge pill bg="dark" style={{ marginLeft: "10%", height: "35px", padding: "10px", fontSize: "15px" }}>{single.seats_of_event - single.rsvp.length}  Seats Left </Badge>
+                  </Card.Text>
+                  
+                  </section>
+              
+                <section className={classes.right}>
+                  <img className={classes.poster} src={single.poster}></img>
+                </section>
+             </section>
+             <Button variant="primary" style={{ margin: "1%" }} active href={`/events/${single._id}`}>
+                    EDIT
+                  </Button>
+                  <Button variant="primary" style={{ margin: "1%" }} active onClick={() => deleteHandler(single._id)}>
+                    Delete
+                  </Button>
+                  <Button variant="primary" onClick={() => {
 
-                      setExcelData(single.rsvp);
-                      { console.log(single.rsvp) }
-                      { console.log("single.rsvp...................") }
-                      if (down.get(single._id)) {
-                        setShow(new Map(down.set(single._id, false)));
-                        setDown(new Map(down.set(single._id, false)));
-                      }
-                      else {
-                        setDown(new Map(down.set(single._id, true)));
-                        setShow(new Map(down.set(single._id, true)));
-                      }
-                    }}
-                    > <CSVLink {...csvLink} style={{ color: "#ffffff" }}>
-                        Click to download data..
-                      </CSVLink> </Button>
-
-                    <Button variant="success" style={{ margin: "1%" }} onClick={() => {
-                      if (flag.get(single._id)) {
-                        setFlag(new Map(flag.set(single._id, false)));
-                      }
-                      else {
-                        setFlag(new Map(flag.set(single._id, true)));
-                      }
-                    }}>
-                      View RSVP List
-                    </Button>
-
-                    {flag.get(single._id) &&  //flaf is defined in view rsvp list
-                      <>
-                        <div>
-                          <br></br>
-                          <div style={{
-                            fontSize: "4vh",
-                            fontFamily: "Trebuchet MS", marginLeft: "30%"
-                          }}
-                          >RSVP List for Event - <b>{single.title_of_event} </b> </div>
-                          {/* {console.log(single.rsvp)} */}
-
-                        </div>
-
-                        <RsvpTable list={single.rsvp} id_of_event={single._id}></RsvpTable>
-
-                      </>
+                    setExcelData(single.rsvp);
+                    { console.log(single.rsvp) }
+                    { console.log("single.rsvp...................") }
+                    if (down.get(single._id)) {
+                      setShow(new Map(down.set(single._id, false)));
+                      setDown(new Map(down.set(single._id, false)));
                     }
+                    else {
+                      setDown(new Map(down.set(single._id, true)));
+                      setShow(new Map(down.set(single._id, true)));
+                    }
+                  }}
+                  > <CSVLink {...csvLink} style={{ color: "#ffffff" }}>
+                      Click to download data..
+                    </CSVLink> </Button>
 
-                  </Card.Body>
-                </Card>
+                  <Button variant="success" style={{ margin: "1%" }} onClick={() => {
+                    if (flag.get(single._id)) {
+                      setFlag(new Map(flag.set(single._id, false)));
+                    }
+                    else {
+                      setFlag(new Map(flag.set(single._id, true)));
+                    }
+                  }}>
+                    View RSVP List
+                  </Button>
 
-              </Accordion>
+                  {flag.get(single._id) &&  //flaf is defined in view rsvp list
+                    <>
+                      <div>
+                        <br></br>
+                        <div style={{
+                          fontSize: "4vh",
+                          fontFamily: "Trebuchet MS", marginLeft: "30%"
+                        }}
+                        >RSVP List for Event - <b>{single.title_of_event} </b> </div>
+                        {/* {console.log(single.rsvp)} */}
+
+                      </div>
+
+                      <RsvpTable list={single.rsvp} id_of_event={single._id}></RsvpTable>
+
+                    </>
+                  }
+                </Card.Body>
+              </Card>
+
+
               <br></br>
               <br></br>
 
