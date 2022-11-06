@@ -34,7 +34,7 @@ const OrganizeEvents = () => {
       <section className={classes.sec2}>
         <div id={classes.sec2_tit}>Your Events  : </div>
         <div id={classes.sec2_sub_tit}>You can edit , update and delete events only which are created by you </div>
-        <div className="d-grid gap-2">
+        <section className={classes.d_grid}>
           {!create && <Button variant="secondary" id={classes.createbtn} onClick={createEvent}>
             Click to Create Event
           </Button>
@@ -44,7 +44,7 @@ const OrganizeEvents = () => {
           </Button>} 
           {create && <CreateEvents/>}
           
-        </div>
+        </section>
         <GetEvents></GetEvents>
       
       </section>

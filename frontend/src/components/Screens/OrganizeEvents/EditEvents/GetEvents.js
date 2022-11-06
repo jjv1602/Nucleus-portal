@@ -98,8 +98,8 @@ const GetEvents = () => {
                   <Card.Title id={classes["content"]}>{single.content}</Card.Title>
                   <Card.Text id={classes["text"]}>
                     <b>Date : </b>{single.date_of_event.substring(0, 10)} <br></br>
-                    <b>Time : </b>{single.time_of_event}
-                    <Badge pill bg="dark" style={{ marginLeft: "10%", height: "35px", padding: "10px", fontSize: "15px" }}>{single.seats_of_event - single.rsvp.length}  Seats Left </Badge>
+                    <b>Time : </b>{single.time_of_event}<br></br>
+                    <Badge pill bg="dark" id={classes["badge"]}>{single.seats_of_event - single.rsvp.length}  Seats Left </Badge>
                   </Card.Text>
                   
                   </section>
@@ -149,7 +149,8 @@ const GetEvents = () => {
                         <br></br>
                         <div style={{
                           fontSize: "4vh",
-                          fontFamily: "Trebuchet MS", marginLeft: "30%"
+                          fontFamily: "Trebuchet MS",
+                          marginLeft:"4%"
                         }}
                         >RSVP List for Event - <b>{single.title_of_event} </b> </div>
                         {/* {console.log(single.rsvp)} */}
