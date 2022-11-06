@@ -8,7 +8,7 @@ import LandingPg from './components/Screens/LandingPg/LandingPg';
 import OrganizeEvents from './components/Screens/OrganizeEvents/OrganizeEvents';
 import EditEvents from './components/Screens/OrganizeEvents/EditEvents/EditEvents';
 import ProfilePg from './components/Screens/ProfilePg/ProfilePg';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 const App = () => {
   return (
     <BrowserRouter>
