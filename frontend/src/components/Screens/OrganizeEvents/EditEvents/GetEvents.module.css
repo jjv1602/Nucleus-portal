@@ -113,7 +113,10 @@
     font-size: 20px;
 
   }
-
+  #header {
+    font-size: 2vh;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
   .search_bar_logo {
     position: absolute;
     right: 0;
@@ -178,6 +181,7 @@
 }
 
 @media(max-width:500px){
+  /* Search Bar */
   .search_bar_grp{
     display: flex;
      position: relative;
@@ -214,7 +218,10 @@
     width: 95%;
     margin: auto;
   }
-
+  #header {
+    font-size: 2vh;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
   #badge {
 
     height: 15px;

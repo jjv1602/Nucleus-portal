@@ -23,7 +23,6 @@
     height: auto;
     margin-top: 10%;
     
-    /* background-color: black; */
 
 }
 
@@ -39,6 +38,7 @@
     font-size: 7vh;
 }
 @media (max-width:900px) {
+    
     .sec1{
         height:60vh;
     }
@@ -47,7 +47,6 @@
         position: absolute;
         left: 5%;
         right: 5%;
-        margin-top: 20%;
         bottom: auto;
         height: auto;
         /* background-color: black; */
