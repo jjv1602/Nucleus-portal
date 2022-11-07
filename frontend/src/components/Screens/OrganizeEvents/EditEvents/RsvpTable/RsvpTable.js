@@ -38,8 +38,9 @@ const RsvpTable = (props) => {
     setEventId(props.id_of_event);
   };
   const removersvp=()=>{
-    console.log(selectedRowKeys);
-    dispatch(rsvp_remove_name_from_table(eventId,selectedRowKeys));
+    if (window.confirm("Are you sure?")) {
+      dispatch(rsvp_remove_name_from_table(eventId,selectedRowKeys));
+    }
   }
   return (
     <>
@@ -53,10 +54,10 @@ const RsvpTable = (props) => {
         onChange: onSelectChange,
       }}
       ></Table>
-      { selectedRowKeys.length!==0 && <Button variant="primary" size="lg" onClick={()=>removersvp()} >
+      { selectedRowKeys.length!==0 && <Button variant="primary" size="sm" onClick={()=>removersvp()} >
       Remove Selected Participants
     </Button>}
-    { selectedRowKeys.length===0 && <Button variant="primary" size="lg" disabled>
+    { selectedRowKeys.length===0 && <Button variant="primary" size="sm" disabled>
       Remove Selected Participants
     </Button>}
     </>

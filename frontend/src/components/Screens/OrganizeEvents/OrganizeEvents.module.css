@@ -4,7 +4,7 @@
     /* filter: brightness(50%); */
     background-image: url('../../Assets/organizeevent.jpg');
     background-repeat: no-repeat;
-    min-height: 70vh;
+    height: 70vh;
     width: 100%;
     background-position: center;
     background-size: cover;
@@ -92,5 +92,31 @@
         text-align: center;
         font-size: 50px;
         color: #201c34;
+    }
+}
+
+@media (max-width:900px){
+    #createbtn {
+        background-color: #44bbb7;
+        width: 50%;
+        height: 40px;
+        margin-left: 25%;
+        margin-right: 20%;
+        font-size: 1.5vh;
+        margin-bottom: 20px;
+    }
+    #sec2_sub_tit {
+        font-size: 2.5vh;
+        text-align: center;
+        
+    }
+    #sec2_tit{
+        font-size: 5vh;
+    }
+    .sec1{
+        height:45vh;
+    }
+    .sec3{
+        height: 8vh;
     }
 }

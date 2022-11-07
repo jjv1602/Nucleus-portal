@@ -26,8 +26,20 @@ const GetEvents = () => {
   const [show, setShow] = useState(new Map());
   const { userInfo } = userLogin;
   const [exceldata, setExcelData] = useState([]);
-  var newArr = [];
-  var i = 1;
+
+  // Media query i.e showing specific components on size 
+  const [matches, setMatches] = useState(
+    window.matchMedia("(max-width: 900px)").matches
+  )
+  
+  useEffect(() => {
+    window
+      .matchMedia("(max-width: 900px)")
+      .addEventListener('change', e => setMatches(e.matches));
+    
+    
+  }, []);
+
   useEffect(() => {
     Aos.init({ duration: 2000 })
   }, [])
@@ -74,10 +86,11 @@ const GetEvents = () => {
     <>
       <section className={classes.events2}>
 
-        <Form classname={classes.search_bar_parent} style={{ width: "60%", margin: "auto", marginTop: "0%", borderRadius: "70px" }}>
-          <Form.Group className={classes.search_bar_grp} controlId="formBasicEmail" style={{ display: "flex", position: "relative", borderRadius: "70px" }}>
-            <Form.Control className={classes.search_bar} type="email" placeholder="Search Event .....  " style={{ height: "7vh" }} onChange={(e) => setSearch(e.target.value)} />
-            <button className={classes.search_bar_logo} style={{ position: "absolute", right: "0", height: "100%", width: "10%" }}>
+        <Form classname={classes.search_bar_parent} style={{
+          width:"60%",margin:"auto"}}>
+          <Form.Group className={classes.search_bar_grp} >
+            <Form.Control className={classes.search_bar} type="email" placeholder="Search Event .....  " onChange={(e) => setSearch(e.target.value)}  />
+            <button className={classes.search_bar_logo} >
               <i class="fa-solid fa-magnifying-glass 2x"></i>
             </button>
           </Form.Group>
@@ -95,26 +108,28 @@ const GetEvents = () => {
                 <Card.Body className={classes.card_body}>
                   <section className={classes.main}>
                     <section className={classes.left}>
-                  <Card.Title id={classes["content"]}>{single.content}</Card.Title>
-                  <Card.Text id={classes["text"]}>
-                    <b>Date : </b>{single.date_of_event.substring(0, 10)} <br></br>
-                    <b>Time : </b>{single.time_of_event}<br></br>
-                    <Badge pill bg="dark" id={classes["badge"]}>{single.seats_of_event - single.rsvp.length}  Seats Left </Badge>
-                  </Card.Text>
-                  
+                      <Card.Title id={classes["content"]}>{single.content}</Card.Title>
+                      <Card.Text id={classes["text"]}>
+                        <b>Date : </b>{single.date_of_event.substring(0, 10)} <br></br>
+                        <b>Time : </b>{single.time_of_event}
+                        {matches && <br></br>}
+                        <Badge pill bg="dark" id={classes["badge"]}>{single.seats_of_event - single.rsvp.length}  Seats Left </Badge>
+                      </Card.Text>
+
+                    </section>
+                    {matches && <br></br>}
+                    <section className={classes.right}>
+                      <img className={classes.poster} src={single.poster}></img>
+                    </section>
+                    {matches && <br></br>}
                   </section>
-              
-                <section className={classes.right}>
-                  <img className={classes.poster} src={single.poster}></img>
-                </section>
-             </section>
-             <Button variant="primary" style={{ margin: "1%" }} active href={`/events/${single._id}`}>
+                  <Button className={classes.button} variant="primary" style={{ margin: "1%" }} active href={`/events/${single._id}`}>
                     EDIT
                   </Button>
-                  <Button variant="primary" style={{ margin: "1%" }} active onClick={() => deleteHandler(single._id)}>
+                  <Button className={classes.button}  variant="primary" style={{ margin: "1%" }} active onClick={() => deleteHandler(single._id)}>
                     Delete
                   </Button>
-                  <Button variant="primary" onClick={() => {
+                  <Button className={classes.button}  variant="primary" onClick={() => {
 
                     setExcelData(single.rsvp);
                     { console.log(single.rsvp) }
@@ -132,7 +147,7 @@ const GetEvents = () => {
                       Click to download data..
                     </CSVLink> </Button>
 
-                  <Button variant="success" style={{ margin: "1%" }} onClick={() => {
+                  <Button className={classes.button}  variant="success" style={{ margin: "1%" }} onClick={() => {
                     if (flag.get(single._id)) {
                       setFlag(new Map(flag.set(single._id, false)));
                     }
@@ -147,11 +162,7 @@ const GetEvents = () => {
                     <>
                       <div>
                         <br></br>
-                        <div style={{
-                          fontSize: "4vh",
-                          fontFamily: "Trebuchet MS",
-                          marginLeft:"4%"
-                        }}
+                        <div id={classes['rsvp_div']}
                         >RSVP List for Event - <b>{single.title_of_event} </b> </div>
                         {/* {console.log(single.rsvp)} */}
 

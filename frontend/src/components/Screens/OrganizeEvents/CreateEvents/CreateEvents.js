@@ -6,6 +6,7 @@ import SuccessMsg from '../../../ErrorMsg/SuccessMsg';
 import Loading from '../../../Loading/Loading';
 import { createEventAction, listEvents, listuserCreatedEvents } from '../../../Store/Actions/eventActions';
 import classes from './CreateEvents.module.css';
+// import { useMediaQuery } from 'react-responsive';
 const CreateEvents = () => {
   const events = useSelector((state) => state.event.events);
   useEffect(() => {
@@ -21,6 +22,7 @@ const CreateEvents = () => {
   const success = useSelector((state) => state.event.userEvent.success);
   const loading=useSelector((state)=>state.event.userEvent.loading);
   const dispatch = useDispatch();
+ 
   useEffect(() => { 
     dispatch(listuserCreatedEvents());
   }, [loading,success]);
@@ -183,6 +185,7 @@ const CreateEvents = () => {
               <br></br>
               <img src={poster} className={classes.posterPic} />
             </section>
+
           </Card.Body>
 
           <Card.Footer className="text-muted">
