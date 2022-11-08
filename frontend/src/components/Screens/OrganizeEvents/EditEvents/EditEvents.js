@@ -10,7 +10,7 @@ import classes from './EditEvents.module.css';
 const EditEvents = ({ match }) => {
   let { id } = useParams();
   const [title_of_event, setTitle] = useState("");
-  const [postermsg,setPostermsg]=useState();
+  const [postermsg, setPostermsg] = useState();
   const [content, setContent] = useState("");
   const [time_of_event, setTime] = useState("");
   const [date_of_event, setDate] = useState("");
@@ -75,7 +75,7 @@ const EditEvents = ({ match }) => {
     }
     else {
       setdateError(false);
-      dispatch(updateEvent(id, title_of_event, content, time_of_event, date_of_event, seats_of_event,poster));
+      dispatch(updateEvent(id, title_of_event, content, time_of_event, date_of_event, seats_of_event, poster));
       // console.log({ id });
       resetHandler();
       navigate('/organizeevent');
@@ -85,6 +85,18 @@ const EditEvents = ({ match }) => {
   const cancelHandler = () => {
     navigate('/organizeevent');
   }
+
+  // MEDIA SCREEN
+  const [matches, setMatches] = useState(
+    window.matchMedia("(max-width: 900px)").matches
+  )
+
+  useEffect(() => {
+    window
+      .matchMedia("(max-width: 900px)")
+      .addEventListener('change', e => setMatches(e.matches));
+
+  }, []);
   return (
     <section style={{ margin: "25px", paddingBottom: "25px" }}>
 
@@ -119,28 +131,28 @@ const EditEvents = ({ match }) => {
               </Form.Group>
               <br></br>
               <Form.Group controlId="pic" >
-                  <Form.Label className={classes.form_label}>Upload Poster of the Event </Form.Label>
-                  <Form.Control
-                    onChange={(e) => posterDetails(e.target.files[0])}
-                    id="custom-file"
-                    type="file"
-                    accept=".png, .jpg, .jpeg"
-                    label="Upload Profile Picture"
-                    custom
-                  />
-                </Form.Group>
-                <br></br>
+                <Form.Label className={classes.form_label}>Upload Poster of the Event </Form.Label>
+                <Form.Control
+                  onChange={(e) => posterDetails(e.target.files[0])}
+                  id="custom-file"
+                  type="file"
+                  accept=".png, .jpg, .jpeg"
+                  label="Upload Profile Picture"
+                  custom
+                />
+              </Form.Group>
+              <br></br>
               <Form.Group controlId="">
-                  <Form.Label>Total Seats for the Event</Form.Label>
-                  <Form.Control
-                    type="number"
-                    value={seats_of_event}
-                    placeholder="Enter tota; seats"
-                    onChange={(e) => setSeats(e.target.value)}
-                    required // important making this box compulsory to fill
-                  />
-                </Form.Group>
-            
+                <Form.Label>Total Seats for the Event</Form.Label>
+                <Form.Control
+                  type="number"
+                  value={seats_of_event}
+                  placeholder="Enter tota; seats"
+                  onChange={(e) => setSeats(e.target.value)}
+                  required // important making this box compulsory to fill
+                />
+              </Form.Group>
+
               <br></br>
               {dateError && <ErrorMsg msg="You have entered wrong date  Your event date has already passed 😐"></ErrorMsg>}
               <Form.Group controlId="content" style={{ width: "50%" }}>
@@ -155,7 +167,7 @@ const EditEvents = ({ match }) => {
                 />
               </Form.Group>
               <br></br>
-              
+
               <Form.Group controlId="content" style={{ width: "50%" }}>
                 <Form.Label >Time of Event </Form.Label>
                 <br></br>
@@ -169,22 +181,48 @@ const EditEvents = ({ match }) => {
 
               </Form.Group>
               <br></br>
+              {matches && <br></br>}
+              {!matches &&
+                <>
 
-              {/* {loading && <Loading size={50} />} */}
-              <Button type="submit" variant="primary" onClick={updateHandler}>
-                Update Event
-              </Button>
-              {/* <Button className="mx-2" onClick={resetHandler} variant="danger"> */}
-              <Button className="mx-2" variant="primary" onClick={resetHandler}>
-                Reset Feilds
-              </Button>
-              <Button className="mx-2" variant="danger" onClick={cancelHandler}>
-                Cancel
-              </Button>
+                  {/* {loading && <Loading size={50} />} */}
+                  <Button type="submit" variant="primary" onClick={updateHandler}>
+                    Update Event
+                  </Button>
+                  {/* <Button className="mx-2" onClick={resetHandler} variant="danger"> */}
+                  <Button className="mx-2" variant="primary" onClick={resetHandler}>
+                    Reset Feilds
+                  </Button>
+                  <Button className="mx-2" variant="danger" onClick={cancelHandler}>
+                    Cancel
+                  </Button>
+                </>
+              }
             </Form>
           </section>
           <section className={classes.right}>
             <img className={classes.poster} src={poster}></img>
+            {matches && <br></br>}
+            {matches &&
+              <>
+
+              <div style={{display:"flex"}}>
+                
+                <Button type="submit" variant="primary" size="sm" style={{height:"3vh",fontSize:"1.5vh"}}onClick={updateHandler}>
+                  Update
+                </Button>
+                {/* <Button className="mx-2" onClick={resetHandler} variant="danger"> */}
+                <Button className="mx-2" variant="primary" size="sm" style={{height:"3vh",fontSize:"1.5vh"}}onClick={resetHandler}>
+                  Reset
+                </Button>
+                <Button className="mx-2" variant="danger" size="sm" style={{height:"3vh",fontSize:"1.5vh"}}onClick={cancelHandler}>
+                  Cancel
+                </Button>
+                
+                </div>
+                <br></br>
+              </>
+            }
           </section>
 
         </Card.Body>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import classes from '../RsvpTable/RsvpTable.module.css'
 import { Table } from 'antd';
 import { Button } from 'react-bootstrap';
 import { rsvp_remove_name_from_table } from '../../../../Store/Actions/eventActions';
@@ -9,9 +8,35 @@ const RsvpTable = (props) => {
   const dispatch = useDispatch();
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [eventId,setEventId]=useState();
+  const [matches, setMatches] = useState(
+    window.matchMedia("(max-width: 500px)").matches
+  )
+  
+  useEffect(() => {
+    window
+      .matchMedia("(max-width: 500px)")
+      .addEventListener('change', e => setMatches(e.matches));
+  }, []);
   useEffect(() => {
    
   }, [selectedRowKeys,props.list]);
+  const mobile=[
+    
+    {
+      title: 'Name',
+      dataIndex: 'name',
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+
+    },
+    {
+      title: 'Contact',
+      dataIndex: 'contact',
+
+    },
+  ]
   const columns = [
     
     {
@@ -21,10 +46,12 @@ const RsvpTable = (props) => {
     {
       title: 'Email',
       dataIndex: 'email',
+
     },
     {
       title: 'Contact',
       dataIndex: 'contact',
+
     },
     {
       title: 'Date and Time of RSVP',
@@ -44,7 +71,9 @@ const RsvpTable = (props) => {
   }
   return (
     <>
-      <Table columns={columns} dataSource={props.list}
+    {matches && <Table 
+     
+    columns={mobile} dataSource={props.list} size='small'
        rowSelection={{
         type: 'checkbox',
         // onSelect: (record) => {
@@ -53,7 +82,24 @@ const RsvpTable = (props) => {
         selectedRowKeys,
         onChange: onSelectChange,
       }}
+     style={{fontSize: "3vh",fontFamily:"monospace"}}
       ></Table>
+    }
+     {!matches &&  <Table 
+    
+     columns={columns} dataSource={props.list} size='small'
+       rowSelection={{
+        type: 'checkbox',
+        // onSelect: (record) => {
+        //   console.log({ record })
+        // }
+        selectedRowKeys,
+        onChange: onSelectChange,
+      }}
+     
+      ></Table>
+      }
+    
       { selectedRowKeys.length!==0 && <Button variant="primary" size="sm" onClick={()=>removersvp()} >
       Remove Selected Participants
     </Button>}
