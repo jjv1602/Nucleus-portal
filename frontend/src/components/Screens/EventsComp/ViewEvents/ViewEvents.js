@@ -38,7 +38,17 @@ const ViewEvents = () => {
       navigate("/");
     }
   }, [userInfo, events]);
+  // MEDIA SCREEN
+  const [matches, setMatches] = useState(
+    window.matchMedia("(max-width: 500px)").matches
+  )
 
+  useEffect(() => {
+    window
+      .matchMedia("(max-width: 500px)")
+      .addEventListener('change', e => setMatches(e.matches));
+
+  }, []);
   return (
     <>
       <section className='events'>
@@ -86,7 +96,9 @@ const ViewEvents = () => {
                       dispatch(rsvp_add_name(single._id));
                     }}> RSVP</Button>
                   }
+
                 </section>
+                {matches && <br></br>}
                 <section className='right'>
                   <img src={single.poster} className="posterPic" />
                 </section>

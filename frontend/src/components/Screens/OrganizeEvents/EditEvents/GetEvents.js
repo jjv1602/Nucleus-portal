@@ -69,7 +69,7 @@ const GetEvents = () => {
       label: "Contact", key: "contact"
     },
     {
-      label: "Date and Time of RSVP", key: "date"
+      label: "Date and Time of RSVP", key: "date_time_of_rsvp"
     }
 
   ]
