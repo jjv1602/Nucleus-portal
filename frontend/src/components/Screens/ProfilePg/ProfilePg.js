@@ -145,9 +145,9 @@ const ProfilePg = () => {
                                 <div style={{ position: "relative", border: "solid #242442 2px", display: "flex", height: "40px" }}>
                                     <Form.Control
                                         type={passwordShown1 ? "text" : "password"}
-                                        value={confpwd}
+                                        value={newpwd}
                                         placeholder="Password"
-                                        onChange={(e) => setconfpwd(e.target.value)}
+                                        onChange={(e) => setnewpwd(e.target.value)}
                                         style={{ border: "0px" }}
 
                                     >
@@ -164,9 +164,9 @@ const ProfilePg = () => {
                                 <div style={{ position: "relative", height: "32px", border: "solid #242442 2px", display: "flex" }}>
                                     <Form.Control
                                         type={passwordShown ? "text" : "password"}
-                                        value={newpwd}
+                                        value={confpwd}
                                         placeholder="Password"
-                                        onChange={(e) => setnewpwd(e.target.value)}
+                                        onChange={(e) => setconfpwd(e.target.value)}
 
                                         size="sm"
                                     >

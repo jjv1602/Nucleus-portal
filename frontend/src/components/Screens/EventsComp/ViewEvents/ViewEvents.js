@@ -68,9 +68,9 @@ const ViewEvents = () => {
         </Form>
         <br></br>
         <br></br>
-        {events && events.filter((filteredEvent) => filteredEvent.title_of_event.toLowerCase().includes(search.toLowerCase()))
+        {events && events.filter((filteredEvent) => filteredEvent.title_of_event.toLowerCase().includes(search.toLowerCase()) &&  filteredEvent.user!==userInfo._id)
           .reverse().map((single) => (
-            // <Card  data-aos="fade-up"  id="card" key={single._id}>
+ 
             <Card id="card" key={single._id}>
               <Card.Header id='header'>{single.title_of_event}</Card.Header>
               <Card.Body className="card_body">

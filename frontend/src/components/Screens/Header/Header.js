@@ -8,8 +8,9 @@ import { logout } from '../../Store/Actions/userActions';
 import './Header.css'
 const Header = () => {
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.login.userLogin);
-  const pic=userInfo.pic;
+  const userInfo = useSelector((state) => state.login.userLogin)
+  const temp= JSON.parse(localStorage.getItem('userInfo'));
+  const pic=temp.pic;
   const navigate = useNavigate();
   useEffect(() => {
     if (!userInfo) {
