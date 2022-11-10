@@ -44,16 +44,16 @@
         font-family: 'Titillium Web', sans-serif;
         position: absolute;
         color: #ffff;
-        top:30%;
+        top:40%;
         left:10%;
         right: 15%;
         text-align: center;
-        font-size: 30px;
+        font-size: 20px;
        
     }
 
 
-@media (max-width:880px) {
+@media (max-width:1025px) {
 
         
         #body{
@@ -67,7 +67,7 @@
              right: 1%;
              display:flex;
             flex-direction: column;
-            padding: 5%;
+            padding: 3%;
             height: auto;
             
         }
