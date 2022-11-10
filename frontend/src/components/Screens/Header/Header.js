@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Image, Nav, Navbar } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../Assets/nhrybbrv.png'
 // import {logout} from '../Store/Actions/userActions';
@@ -8,8 +8,14 @@ import { logout } from '../../Store/Actions/userActions';
 import './Header.css'
 const Header = () => {
   const dispatch = useDispatch();
-  const userInfo=JSON.parse(localStorage.getItem('userInfo'));
+  const userInfo = useSelector((state) => state.login.userLogin);
   const pic=userInfo.pic;
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!userInfo) {
+      navigate("/login");
+    }
+  }, [userInfo]);
   const logHandler=()=>{
     dispatch(logout());
     
@@ -25,7 +31,7 @@ const Header = () => {
     
     
   }, []);
-
+ 
 
   return (
     <Navbar expand="lg" id='navt' >

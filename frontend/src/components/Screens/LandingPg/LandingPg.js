@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Accordion } from 'react-bootstrap'
 import ViewEvents from '../EventsComp/ViewEvents/ViewEvents'
 import Header from '../Header/Header'
 import classes from './LandingPg.module.css'
+import { useNavigate } from 'react-router-dom';
 import 'animate.css';
+import { useSelector } from 'react-redux'
 const LandingPg = () => {
+  const userInfo = useSelector((state) => state.login.userLogin);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!userInfo) {
+      navigate("/login");
+    }
+  }, [userInfo]);
   return (
     <div className='q'>
       <Header ></Header>
