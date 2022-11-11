@@ -7,9 +7,7 @@ of events which was quite long process so I decided to create a portal in which 
    
 User just needs to add details in their profile page and then user can register for various events without hectic task of filling different forms.
 
-<br>
-<br>
-<img src="/Screenshot_Images/Home1.jpg"  width="100%" height="700">
+<img src="/Screenshot_Images/Home1.jpg"  width="100%" height="500">
 
 
 
