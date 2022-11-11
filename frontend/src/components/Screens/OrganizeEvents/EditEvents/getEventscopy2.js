@@ -37,7 +37,6 @@ const GetEvents = () => {
   },[exceldata])
   useEffect(()=>{},[datafetched]);
   const deleteHandler = (id) => {
-    console.log("delet handler");
     if (window.confirm("Are you sure?")) {
       dispatch(deleteEvent(id));
     }
@@ -59,11 +58,7 @@ const csvLink = {
   filename:"csvfile.csv",
 }
   function D(single){
-    // const dummy=[{id:Math.random().toString(),name:"test",eid:"da@gmail.com"}];
-    // setData([dummy]);
-    console.log("data fetched");
-    console.log(datafetched);
-
+    
     setCount(single.rsvp.length);
     dispatch(cleararr());
     single.rsvp.map( i=>{
@@ -73,8 +68,8 @@ const csvLink = {
 
   function download(){
     if(count_of_rsvp===exceldata.length){
-      console.log("Download function called ");
-      console.log(exceldata);
+      // console.log("Download function called ");
+      // console.log(exceldata);
       setdatafetched(true);
     }
   }

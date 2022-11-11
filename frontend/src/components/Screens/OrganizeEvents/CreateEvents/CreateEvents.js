@@ -34,18 +34,16 @@ const CreateEvents = () => {
       data.append("file", pics);
       data.append("upload_preset", "eventmanage");
       data.append("cloud_name", "dxxu4powb");
-      console.log(data);
       fetch("https://api.cloudinary.com/v1_1/dxxu4powb/image/upload", {
         method: "post",
         body: data,
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           setPoster(data.url.toString());
         })
         .catch((err) => {
-          console.log(err);
         });
     } else {
       return setPostermsg("Please Select a jpeg image");

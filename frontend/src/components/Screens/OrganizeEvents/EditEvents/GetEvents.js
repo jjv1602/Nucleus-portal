@@ -52,7 +52,7 @@ const GetEvents = () => {
   }, [exceldata])
   useEffect(() => { }, [datafetched]);
   const deleteHandler = (id) => {
-    console.log("delet handler");
+
     if (window.confirm("Are you sure?")) {
       dispatch(deleteEvent(id));
     }

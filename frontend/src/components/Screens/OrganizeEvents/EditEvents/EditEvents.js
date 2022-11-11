@@ -22,9 +22,9 @@ const EditEvents = ({ match }) => {
 
   useEffect(() => {
     const fetching = async () => {
-      console.log(id);
+      // console.log(id);
       const { data } = await axios.get(`/api/events/${id}`);
-      console.log(data);
+      // console.log(data);
       setTitle(data.title_of_event);
       setContent(data.content);
       setTime(data.time_of_event);
@@ -40,18 +40,17 @@ const EditEvents = ({ match }) => {
       data.append("file", pics);
       data.append("upload_preset", "eventmanage");
       data.append("cloud_name", "dxxu4powb");
-      console.log(data);
+
       fetch("https://api.cloudinary.com/v1_1/dxxu4powb/image/upload", {
         method: "post",
         body: data,
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           setPoster(data.url.toString());
         })
         .catch((err) => {
-          console.log(err);
         });
     } else {
       return setPostermsg("Please Select a jpeg image");

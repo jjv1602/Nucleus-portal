@@ -31,19 +31,19 @@ const ProfilePg = () => {
             data.append("file", pics);
             data.append("upload_preset", "eventmanage");
             data.append("cloud_name", "dxxu4powb");
-            console.log(data);
+            // console.log(data);
             fetch("https://api.cloudinary.com/v1_1/dxxu4powb/image/upload", {
                 method: "post",
                 body: data,
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log(data);
+                    // console.log(data);
                     setPic(data.url.toString());
 
                 })
                 .catch((err) => {
-                    console.log(err);
+                    // console.log(err);
                 });
         } else {
             return setPicMessage("Please Select an Image");
@@ -52,7 +52,7 @@ const ProfilePg = () => {
     const submitHandler = (e) => {
 
         if (newpwd !== confpwd) {
-            console.log("not going")
+            // console.log("not going")
             setcnoMsg("Number is Incorrect");
 
         } else {

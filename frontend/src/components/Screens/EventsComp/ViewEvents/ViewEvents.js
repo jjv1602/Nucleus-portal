@@ -12,7 +12,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { toggleActions } from '../../../Store/Store';
 import 'animate.css';
 const getposter = (arg) => {
-  console.log(arg);
   return (
     <div style={{ height: "400px", width: "400px" }}>
       <img src={arg}></img>

@@ -59,9 +59,8 @@ const RsvpTable = (props) => {
     },
   ];
   const onSelectChange = (newSelectedRowKeys) => {
-    console.log('selectedRowKeys changed: ', newSelectedRowKeys);
+    // console.log('selectedRowKeys changed: ', newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
-    console.log(selectedRowKeys);
     setEventId(props.id_of_event);
   };
   const removersvp=()=>{

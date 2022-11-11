@@ -15,7 +15,7 @@
         { email, password },
         config
       );
-      console.log(data);
+      // console.log(data);
       localStorage.setItem("userInfo", JSON.stringify(data));
       dispatch(loginActions.USER_LOGIN_SUCCESS(data));
   
@@ -67,14 +67,14 @@
     try {
       dispatch(registerActions.USER_UPDATE_REQUEST());
       const userInfo=JSON.parse(localStorage.getItem('userInfo'));
-      console.log(userInfo.token);
+      // console.log(userInfo.token);
       const config = {
         headers: {
           "Content-type": "application/json",
            Authorization: `Bearer ${userInfo.token}`
         },
       };
-      console.log("update");
+      // console.log("update");
       const { data } = await axios.put(
         "api/users/profile",
         {name, email, pic,password,contact},

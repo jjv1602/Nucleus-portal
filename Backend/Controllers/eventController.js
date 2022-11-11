@@ -133,11 +133,10 @@ const remove_rsvp = expressAsyncHandler(async (req, res) => {
 const remove_rsvp_from_table = expressAsyncHandler(async (req, res) => {
   const { event_id,removelist } = req.body;
   const event = await Event.findById(event_id);
-  //params.id means take id from url
+  
   for(let i=0;i<removelist.length;i++){
-    if (event.rsvp.findIndex(a=>a.user_id===user_id) != -1) {
-
-      event.rsvp.splice(event.rsvp.findIndex(a=>a.user_id===user_id),1);
+    if (event.rsvp.findIndex(a=>a.user_id===removelist[i]) != -1) {
+      event.rsvp.splice(event.rsvp.findIndex(a=>a.user_id===removelist[i]),1);
       const rsvp_event = await event.save();
       res.json(rsvp_event);
     }
@@ -145,6 +144,6 @@ const remove_rsvp_from_table = expressAsyncHandler(async (req, res) => {
       res.json({ message: "Username already removed" });
     }
   }
-  
+
 });
 module.exports = { getEvents, createEvent, getEventById, updateEvent, deleteEvent, getEventscreatedbyparticularperson, rsvp, remove_rsvp ,remove_rsvp_from_table};
