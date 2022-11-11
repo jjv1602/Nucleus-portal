@@ -65,6 +65,7 @@
   
   export const updateProfile = (name, email, pic,password,contact )  => async (dispatch) => {
     try {
+      dispatch(registerActions.USER_UPDATE_REQUEST());
       const userInfo=JSON.parse(localStorage.getItem('userInfo'));
       console.log(userInfo.token);
       const config = {
@@ -81,6 +82,7 @@
       );
       
       localStorage.setItem("userInfo", JSON.stringify(data));
+      dispatch(registerActions.USER_UPDATE_SUCCESS());
     } catch (error) {
     
         dispatch(registerActions.USER_UPDATE_FAIL(error.response && error.response.data.message

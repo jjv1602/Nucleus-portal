@@ -68,7 +68,10 @@ const userRegisterSlice = createSlice({
             loading: false,
             error: "",
         },
-        userUpdate:"",
+        userUpdate_success:false,
+        userUpdate_loading:false,
+        userUpdate_error:"",
+        userUpdateinfo:"",
         mailid:[],
     },
     reducers: {
@@ -83,8 +86,18 @@ const userRegisterSlice = createSlice({
             state.userRegister.loading = false;
             state.userRegister.error = action.payload;
         },
+        USER_UPDATE_REQUEST(state,action){
+            state.userUpdate_loading=true;
+
+        },
         USER_UPDATE_FAIL(state,action){
-            state.userUpdate.error = action.payload;
+            state.userUpdate_error=action.payload;
+            state.userUpdate_loading=false;
+            state.userUpdate_success=false;
+        },
+        USER_UPDATE_SUCCESS(state,action){
+            state.userUpdate_loading=false;
+            state.userUpdate_success=true;
         },
         ADD_MAIL_ID(state,action){
             console.log("inside store ");

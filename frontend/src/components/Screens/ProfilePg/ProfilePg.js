@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Alert, Button, Col, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorMsg from '../../ErrorMsg/ErrorMsg';
+import SuccessMsg from '../../ErrorMsg/SuccessMsg';
+import Loading from '../../Loading/Loading';
 import { updateProfile } from '../../Store/Actions/userActions';
 import Header from '../Header/Header';
 import classes from './ProfilePg.module.css'
@@ -20,6 +22,9 @@ const ProfilePg = () => {
     const [cnoMsg, setcnoMsg] = useState();
     const [passwordShown, setPasswordShown] = useState(false);
     const [passwordShown1, setPasswordShown1] = useState(false);
+    const success = useSelector((state) => state.register. userUpdate_success);
+    const loading = useSelector((state) => state.register. userUpdate_loading);
+    const error = useSelector((state) => state.register. userUpdate_error);
     const postDetails = (pics) => {
         if (pics.type === "image/jpeg" || pics.type === "image/png") {
             const data = new FormData();
@@ -75,7 +80,10 @@ const ProfilePg = () => {
                 <Alert.Heading> <b style={{}}> EDIT PROFILE</b> <br></br>
                     You can view and update your profile </Alert.Heading>
             </Alert>
-
+            
+            {error && <Alert msg={error}></Alert>}
+            {success && <div style={{width:"80%",margin:"auto"}}><br></br><SuccessMsg msg="User Updated Successfully"></SuccessMsg></div>}
+            
             <section className={classes.sec1}  >
                 <section className={classes.left}>
 
@@ -218,6 +226,7 @@ const ProfilePg = () => {
                         <Button variant="primary" type="submit">
                             Update
                         </Button>
+                        {loading && <Loading size={50} />}
                     </Form>
                 </section>
                 <section className={classes.right}>
