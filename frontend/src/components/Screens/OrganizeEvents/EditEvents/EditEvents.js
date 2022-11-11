@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { format, formatDistance, formatRelative, subDays } from 'date-fns'
 import React, { useEffect, useState } from 'react'
 import { Button, Card, Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
@@ -200,7 +199,7 @@ const EditEvents = ({ match }) => {
             </Form>
           </section>
           <section className={classes.right}>
-            <img className={classes.poster} src={poster}></img>
+            <img className={classes.poster} src={poster} alt="Unable to load"></img>
             {matches && <br></br>}
             {matches &&
               <>

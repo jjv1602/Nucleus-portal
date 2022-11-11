@@ -1,6 +1,6 @@
-import { getType } from "@reduxjs/toolkit";
+
 import axios from "axios";
-import { eventActions, loginActions, registerActions } from "../Store";
+import { eventActions, registerActions } from "../Store";
 export const listEvents = () => async (dispatch) => {
   try {
     dispatch(eventActions.EVENT_LIST_REQUEST());

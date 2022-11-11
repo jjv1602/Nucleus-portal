@@ -1,8 +1,7 @@
 
-import { configureStore, createSlice, applyMiddleware } from '@reduxjs/toolkit';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 
-import { composeWithDevTools } from "redux-devtools-extension";
 const reduxLogger = require('redux-logger');
 const logger = reduxLogger.createLogger();
 // const applyMiddleware=redux.applyMiddleware;

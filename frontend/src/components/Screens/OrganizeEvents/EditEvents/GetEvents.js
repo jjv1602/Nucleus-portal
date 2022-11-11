@@ -1,9 +1,8 @@
-import axios from 'axios';
+
 import React, { useEffect, useState } from 'react'
-import { Accordion, Badge, Button, Card, Form, ListGroup, Table } from 'react-bootstrap';
+import {  Badge, Button, Card, Form  } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
-import { getmailid, listuserCreatedEvents } from '../../../Store/Actions/eventActions'
+import {  listuserCreatedEvents } from '../../../Store/Actions/eventActions'
 import { deleteEvent, cleararr } from '../../../Store/Actions/eventActions'
 import { toggleActions } from '../../../Store/Store';
 import { CSVDownload, CSVLink } from "react-csv";
