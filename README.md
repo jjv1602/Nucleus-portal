@@ -45,6 +45,11 @@ Install dependencies
   npm install express
 ```
 
+For running Backend
+```bash
+  npm start
+```
+
 Start frontend and backend both 
 
 ```bash
