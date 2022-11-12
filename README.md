@@ -44,22 +44,10 @@ Install dependencies
 ```bash
   npm install express
 ```
-For .env files 
-```bash
-  npm install dotenv
-```
-For encrypting password
-```bash
-  npm install bcrypt
-```
 
-Router
-```bash
-  npm install react-router-dom
-```
-Start the server
+Start frontend and backend both 
 
 ```bash
-  npm run start
+  npm run dev
 ```
 
