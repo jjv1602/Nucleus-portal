@@ -4,7 +4,7 @@ const dotenv=require('dotenv');
 const connectDB=require("./config/db.js");
 const userRoutes=require("./routes/userRoutes");
 const eventRoutes=require("./routes/eventRoutes")
-const eventRoutes=require("");
+
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });;
 
@@ -25,7 +25,7 @@ app.use('/api/events',eventRoutes);   //eventRoutes is imported above
 const __dirname1 = path.resolve();
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname1, "/frontend/build")));
+  app.use(express.static(path.join(__dirname1, "./../frontend/build")));
 
   app.get("*", (req, res) =>
     res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"))  // go inside frontend then build then inside index.html
