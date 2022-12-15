@@ -15,7 +15,7 @@ User just needs to add details in their profile page and then user can register 
  
   Images of the website can be viewed in [Screenshots of project ](https://github.com/jjv1602/Event-management-portal/tree/main/Screenshot_Images)
 
-  Complete demonstration video can be found in [Demo Video ](https://drive.google.com/file/d/1Tb1cj7wkiXxsFa-aejuaqSWe4FY4q8GL/view?usp=sharing)
+  Complete demonstration video can be found in [Demo Video ](https://drive.google.com/file/d/1eDqIv5HaEB4Bk1Bfn2sLDKcnsAC_JUt1/view?usp=sharing)
 
 ## Built with
 
