@@ -4,6 +4,8 @@
 Clubs in college would
 send google forms to fill for registration
 of events which was quite long process so I decided to create a portal in which user with click of a button can register and browse other events in the college   
+Organizer of the event can easily add delete user and also download all RSVP list in excel format . 
+On click of RSVP button the profile details of user would be directly registered in event database and user would not need to fill the google forms 
    
 User just needs to add details in their profile page and then user can register for various events without hectic task of filling different forms.
 
