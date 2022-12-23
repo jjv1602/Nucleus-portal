@@ -1,5 +1,5 @@
 
-# Event Management Portal
+# Nucleus Portal
 
 Clubs in college would
 send google forms to fill for registration
