@@ -9,8 +9,6 @@ On click of RSVP button the profile details of user would be directly registered
    
 User just needs to add details in their profile page and then user can register for various events without hectic task of filling different forms.
 
-<img src="/Screenshot_Images/Home1.jpg"  width="100%" height="500">
-
 
 
 ## Screenshots and Demonstration of Project
@@ -18,7 +16,19 @@ User just needs to add details in their profile page and then user can register 
   Images of the website can be viewed in [Screenshots of project ](https://github.com/jjv1602/Event-management-portal/tree/main/Screenshot_Images)
 
   Complete demonstration video can be found in [Demo Video ](https://drive.google.com/file/d/1eDqIv5HaEB4Bk1Bfn2sLDKcnsAC_JUt1/view?usp=sharing)
-
+   
+1- Register Page <br>
+   <img src="/Screenshot_Images/Register_Pg.jpg"  width="80%" height="400">
+<br>
+2- Home Page <br>
+<img src="/Screenshot_Images/Home1.jpg"  width="80%" height="400">
+<br>
+3- Browse Events Page <br>
+<img src="/Screenshot_Images/Home2.jpg"  width="80%" height="400">
+<br>
+4- Organizer Page <br>
+<img src="/Screenshot_Images/Hostevent2.jpg"  width="80%" height="400">
+<br>
 ## Built with
 
 * React Js
