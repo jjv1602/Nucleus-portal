@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 import './App.css';
 import StartPg from './components/start_pg/StartPg';
-import 'font-awesome/css/font-awesome.min.css';
+
 // import Header from './components/Header/Header';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LandingPg from './components/Screens/LandingPg/LandingPg';

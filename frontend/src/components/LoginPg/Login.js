@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import Loading from '../Loading/Loading';
 import ErrorMsg from '../ErrorMsg/ErrorMsg';
 import './Login.css';
-import 'font-awesome/css/font-awesome.min.css';
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleActions, loginActions } from '../Store/Store';
 import { login } from '../Store/Actions/userActions';
