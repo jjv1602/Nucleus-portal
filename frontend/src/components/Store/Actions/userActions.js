@@ -44,7 +44,7 @@
       };
   
       const { data } = await axios.post(
-        "https://nucleus-portal-backend-vvim.vercel.app/api/users",
+        "/api/users",
         { name,email, password },
         config
       );
