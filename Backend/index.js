@@ -21,7 +21,7 @@ app.use('/api/events',eventRoutes);   //eventRoutes is imported above
 // })
 // ---------production ------------------
 if (process.env.NODE_ENV === "production") {
-    const __dirname = path.resolve();
+    const __dirname1 = path.resolve();
     
   
     app.get("/", (req, res) =>{
