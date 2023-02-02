@@ -20,12 +20,12 @@ app.use('/api/events',eventRoutes);   //eventRoutes is imported above
 //     res.send("API is running");
 // })
 // ---------production ------------------
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === 'production') {
     const __dirname1 = path.resolve();
     
     app.use(express.static(path.join(__dirname1, "/frontend/build")));
   
-    app.get("/", (req, res) =>{
+    app.get("*", (req, res) =>{
       res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"))
 
     });
