@@ -23,9 +23,9 @@ app.use('/api/events',eventRoutes);   //eventRoutes is imported above
 if (process.env.NODE_ENV === "production") {
     const __dirname1 = path.resolve();
     
+    app.use(express.static(path.join(__dirname1, "/frontend/build")));
   
     app.get("/", (req, res) =>{
-    app.use(express.static(path.resolve(__dirname1, "frontend", "build")));
       res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"))
 
     });
