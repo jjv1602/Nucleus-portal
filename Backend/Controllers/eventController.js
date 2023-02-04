@@ -16,7 +16,7 @@ const getEvents = expressAsyncHandler(async (req, res) => {
 const getEventscreatedbyparticularperson = expressAsyncHandler(async (req, res) => {
   // to find display event created by a particular mail 
   // here in routes protect is there and protect would give user_id
-  const Events = await Event.find({ user: user_id });
+  const Events = await Event.find({ user: req.user._id });
   res.json(Events);
 });
 
@@ -29,7 +29,7 @@ const createEvent = expressAsyncHandler(async (req, res) => {
     return;
   } else {
     // here user_id is coming from authMiddleware see line 20
-    const event = new Event({ title_of_event, content, time_of_event, date_of_event,seats_of_event,poster,user: user_id });
+    const event = new Event({ title_of_event, content, time_of_event, date_of_event,seats_of_event,poster,user: req.user._id });
 
     const createdEvent = await event.save(); // after saving it is going to send a note which we are saving in createdNote and in next line we storing that event inside json
 
@@ -58,7 +58,7 @@ const updateEvent = expressAsyncHandler(async (req, res) => {
   const event = await Event.findById(req.params.id);
   
   // checking whether user who made the event is the same user who is updating
-  if (event.user.toString() !== user_id.toString()) {
+  if (event.user.toString() !== req.user._id.toString()) {
     res.status(401);
     throw new Error("You can't perform this action as your are not creator of event");
   }
@@ -81,7 +81,7 @@ const updateEvent = expressAsyncHandler(async (req, res) => {
 const deleteEvent = expressAsyncHandler(async (req, res) => {
   const event = await Event.findById(req.params.id);
 
-  if (event.user.toString() !== user_id.toString()) {
+  if (event.user.toString() !== req.user._id.toString()) {
     res.status(401);
     throw new Error("You can't perform this action");
   }
